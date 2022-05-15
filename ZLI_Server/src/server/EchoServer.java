@@ -2,11 +2,15 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 package server;
-import logic.Order;
 import java.io.IOException;
 import java.util.ArrayList;
-import DBConnector.*;
 
+import DBConnector.DeliveryDBConnection;
+import DBConnector.mysqlConnection;
+import common.Message;
+import enumType.ServerMessageType;
+import logic.Order;
+import logic.User;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
 
@@ -56,71 +60,76 @@ public class EchoServer extends AbstractServer {
 	public void handleMessageFromClient(Object msg, ConnectionToClient client)
 
 	{
-
+		Message message = (Message)msg; 
 		System.out.println("Message received: " + msg + " from " + client);
-		String splitString[] = msg.toString().split(" ");
-		switch (splitString[0]) {
-		case "getUserInfo":
+		String splitString[] = message.toString().split(" ");
+		switch (message.getClientMessageType()) {
+		case LOGIN:
 			try {//---------------------we need the row below****
-				String rs=mysqlConnection.getUserInfo(splitString[1]);
-				client.sendToClient((Object)rs);
+				User rs= mysqlConnection.getUserInfo(splitString[0]);
+				message=new Message((rs==null)?ServerMessageType.FAILED:ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
 				} catch (IOException e) {
 				}
 			break;
 			
 			
-		case "getOrder":
-			try {//---------------------we need the row below****
-			Order rs=mysqlConnection.getOrder(splitString[1]);
-			client.sendToClient((Object)rs);
-			} catch (IOException e) {
-			}
-		break;
-		
-		case "updateColor":
-			try {
-			boolean succeeded = mysqlConnection.updateColor(splitString[1], splitString[2]);
-			client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
-			}catch(IOException e) {
-			}
-			break;
-			
-		case "updateDate":
-			try {
-				boolean succeeded = mysqlConnection.updateDate(splitString[1], splitString[2]);
-				client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
-			} catch (IOException e) {
-			}
-		case "getOrders":
+//		case "getOrder":
+//			try {//---------------------we need the row below****
+//			Order rs=mysqlConnection.getOrder(splitString[1]);
+//			client.sendToClient((Object)rs);
+//			} catch (IOException e) {
+//			}
+//		break;
+//		
+//		case "updateColor":
+//			try {
+//			boolean succeeded = mysqlConnection.updateColor(splitString[1], splitString[2]);
+//			client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
+//			}catch(IOException e) {
+//			}
+//			break;
+//			
+//		case "updateDate":
+//			try {
+//				boolean succeeded = mysqlConnection.updateDate(splitString[1], splitString[2]);
+//				client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
+//			} catch (IOException e) {
+//			}
+		case GetClientsOrders:
 			try {
 				ArrayList<Order> rs=mysqlConnection.getOrders();
-				client.sendToClient(rs);
+				 message = new Message((rs==null)?ServerMessageType.FAILED:ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
 			}catch (IOException e) {
 				
 			}
-		case "updateLoggedIn": //added by gal
+		case UpdateLoggedIn: //added by gal
 			try {
 				
-				int status = Integer.parseInt(splitString[2]); //turn the status into int
-				System.out.println(splitString[1] + " " +status+ " test");
-				boolean succeeded = mysqlConnection.UpdateLoggedIn(splitString[1],status);
-				client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
+				int status = Integer.parseInt(splitString[1]); //turn the status into int
+				System.out.println(splitString[0] + " " +status+ " test");
+				if(status==0)ServerUI.aFrame.delClient(client,getNumberOfClients());//update server gui
+				boolean succeeded = mysqlConnection.UpdateLoggedIn(splitString[0],status);
+				client.sendToClient(new Message(succeeded?ServerMessageType.SUCCEED:ServerMessageType.FAILED,succeeded));//changed from sendToAllClient
 			} catch (IOException e) {
 			}
-		case "UpdateOrderDelivered": //added by gal
+		case UpdateOrderDelivered: //added by gal
 			try {
-				int status = Integer.parseInt(splitString[1]); //take the ordernumber 
-				System.out.println(splitString[1] + " test");
-				boolean succeeded = DeliveryDBConnection.UpdateOrderDelivered(splitString[1]);
-				client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
+		
+				System.out.println(splitString[0] + " test");
+				boolean succeeded = DeliveryDBConnection.UpdateOrderDelivered(splitString[0]);
+				client.sendToClient(new Message(succeeded?ServerMessageType.SUCCEED:ServerMessageType.FAILED,succeeded));//changed from sendToAllClient
 			} catch (IOException e) {
 			}
 			
-		case "disconnect":
+		case EXIT:
 			try {
 				client.sendToClient("");
-				client.close();
 				ServerUI.aFrame.delClient(client,getNumberOfClients());
+				boolean succeeded =mysqlConnection.UpdateLoggedIn(splitString[0],0);
+				System.out.println("client "+client+" Exit operation "+(succeeded?"succeed":"faild"));
+				client.close();
 			} catch (IOException e) {
 			}
 		default:

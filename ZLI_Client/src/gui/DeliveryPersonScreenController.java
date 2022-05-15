@@ -1,13 +1,11 @@
 package gui;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import client.ClientUI;
+import common.Message;
+import enumType.ClientMessageType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -58,7 +56,7 @@ public class DeliveryPersonScreenController {
     @FXML
     void LogOut(ActionEvent event) {
     	try {
-    		ClientUI.chat.accept("updateLoggedIn " + roleName.getText() +" 0");
+    		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,roleName.getText()+" 0"));
 			((Node) event.getSource()).getScene().getWindow().hide();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
 			Pane root = loader.load();
@@ -81,7 +79,7 @@ public class DeliveryPersonScreenController {
     @FXML
     void exit(ActionEvent event) {
     	System.out.println();
-    	ClientUI.chat.accept("updateLoggedIn " + roleName.getText() +" 0"); //loggedin = 0
+    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,roleName.getText()+" 0")); //loggedin = 0
     	System.exit(0);
     }
 

@@ -2,9 +2,8 @@ package common;
 
 import java.io.Serializable;
 
-import enumType.ClientMessage;
-import enumType.DBControllerType;
-import enumType.ServerMessage;
+import enumType.ClientMessageType;
+import enumType.ServerMessageType;
 
 public class Message implements Serializable {
 	/**
@@ -13,51 +12,42 @@ public class Message implements Serializable {
 	private static final long serialVersionUID = -1997977260794511165L;
 
 	// Type of the operation we want from the server to make.
-    private ClientMessage ClientMessageType;
+    private ClientMessageType ClientMessageType;
 
     //Which controller on the client should do the operation
-    private DBControllerType DBcontrollerType;
+//    private DBControllerType DBcontrollerType;
     
     // Which controller on the server should make the operation.
-    private ServerMessage serverMessageType;
+    private ServerMessageType serverMessageType;
     
     private Object obj;
     
-    public ClientMessage getClientMessageType() {
+    public ClientMessageType getClientMessageType() {
 		return ClientMessageType;
 	}
-
-	public Message(ClientMessage clientMessageType, DBControllerType dBcontrollerType, Object obj) {
+    //Constructor for client message
+	public Message(ClientMessageType clientMessageType, Object obj) {
 		super();
 		ClientMessageType = clientMessageType;
-		DBcontrollerType = dBcontrollerType;
+
 		this.obj = obj;
 	}
-
-	public Message(DBControllerType dBcontrollerType, ServerMessage serverMessageType, Object obj) {
+	//Constructor for server message
+	public Message(ServerMessageType serverMessageType, Object obj) {
 		super();
-		DBcontrollerType = dBcontrollerType;
 		this.serverMessageType = serverMessageType;
 		this.obj = obj;
 	}
 
-	public void setClientMessageType(ClientMessage clientMessageType) {
+	public void setClientMessageType(ClientMessageType clientMessageType) {
 		ClientMessageType = clientMessageType;
 	}
 
-	public DBControllerType getDBcontrollerType() {
-		return DBcontrollerType;
-	}
-
-	public void setDBcontrollerType(DBControllerType dBcontrollerType) {
-		DBcontrollerType = dBcontrollerType;
-	}
-
-	public ServerMessage getServerMessageType() {
+	public ServerMessageType getServerMessageType() {
 		return serverMessageType;
 	}
 
-	public void setServerMessageType(ServerMessage serverMessageType) {
+	public void setServerMessageType(ServerMessageType serverMessageType) {
 		this.serverMessageType = serverMessageType;
 	}
 
@@ -67,6 +57,12 @@ public class Message implements Serializable {
 
 	public void setObj(Object obj) {
 		this.obj = obj;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return obj.toString();
 	}
 
 }

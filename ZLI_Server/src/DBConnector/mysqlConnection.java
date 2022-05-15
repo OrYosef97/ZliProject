@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import gui.ServerScreenController;
 import logic.Order;
+import logic.User;
 
 public class mysqlConnection {
 	
@@ -141,22 +142,22 @@ public class mysqlConnection {
 
 	}
 	
-	public static String getUserInfo(String userName) {
-		StringBuilder userInfo = new StringBuilder();
+	public static User getUserInfo(String userName) {
+		User user = null;
 		PreparedStatement stmt;//
 		try {
 			stmt = conn.prepareStatement("SELECT * FROM login where userName = ?");
 			stmt.setString(1, userName);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next())
-				userInfo.append(rs.getString(1)+"//z"+rs.getString(2)+"//z"+rs.getString(3)+"//z"+rs.getString(4));
+				user=new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
-		System.out.println(userInfo);
-		return userInfo.toString();
+		System.out.println(user);
+		return user;
 	}
 	
 	//@author gal

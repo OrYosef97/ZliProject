@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 
 import client.ClientChat;
 import client.ClientUI;
+import common.Message;
+import enumType.ClientMessageType;
+import enumType.ServerMessageType;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,11 +96,12 @@ public class OrdersScreenController implements Initializable {
 	}
 
 	public void loadOrders() {
-		ClientUI.chat.accept("getOrders");
-		ArrayList<Order> ordersArray = (ArrayList<Order>) ClientChat.returnedValueFromServer;
+		ClientUI.chat.accept(new Message(ClientMessageType.GetClientsOrders,null));
+		Message message = (Message)ClientChat.returnedValueFromServer;
+		ArrayList<Order> ordersArray = (ArrayList<Order>) message.getObj();
 		System.out.println("got it");
 		System.out.println("got " + ordersArray);// just for check
-		if (ordersArray == null)
+		if (message.getServerMessageType()==ServerMessageType.FAILED)
 			return;
 		Platform.runLater(new Runnable() {
 			@Override
@@ -118,8 +122,8 @@ public class OrdersScreenController implements Initializable {
 		Optional<ButtonType> r = alert.showAndWait();
 		if (r.isPresent() && r.get() == ButtonType.YES) {
 			Order selectedOrder = OrdersTable.getFocusModel().getFocusedItem();
-			ClientUI.chat.accept("UpdateOrderDelivered " + selectedOrder.getOrderNumber());
-			OrdersTable.getItems().removeAll(OrdersTable.getSelectionModel().getSelectedItems());
+			ClientUI.chat.accept(new Message(ClientMessageType.UpdateOrderDelivered,selectedOrder.getOrderNumber()));
+			OrdersTable.getItems().removeAll(OrdersTable.getSelectionModel().getSelectedItems());//or: why you dont send "selectedOrder"
 			OrdersTable.refresh();
 		}
 	}

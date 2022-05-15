@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import client.ClientChat;
 import client.ClientUI;
+import common.Message;
+import enumType.ClientMessageType;
+import enumType.ServerMessageType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +19,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import logic.User;
 
 public class LoginScreenController {
 
@@ -37,22 +41,22 @@ public class LoginScreenController {
 			wrongLoginLabel.setText("Username and Password fields cannot be empty");
 			wrongLoginLabel.setVisible(true);
 		} else {
-			ClientUI.chat.accept("getUserInfo " + usernameTextField.getText().trim());
-			String msg = (String) ClientChat.returnedValueFromServer;
-			if (msg == null) {// if the user not found - wrong username
+			ClientUI.chat.accept(new Message(ClientMessageType.LOGIN,usernameTextField.getText().trim()));
+			Message message = (Message) ClientChat.returnedValueFromServer;
+			if (message.getServerMessageType()==ServerMessageType.FAILED) {// if the user not found - wrong username
 				wrongLoginLabel.setText("User dose not exist");
 				wrongLoginLabel.setVisible(true);
 				return;
 			}
 			
-			String userInfo[] = msg.split("//z");
-			System.out.println(userInfo[1]);
-			if(!(passwordTextField.getText().trim().equals(userInfo[1]))) {//if password incorrect
+			User user = (User)message.getObj();
+			System.out.println("just for check "+user);
+			if(!(passwordTextField.getText().trim().equals(user.getPassword()))) {//if password incorrect
 				wrongLoginLabel.setText("Wrong username or password");
 				wrongLoginLabel.setVisible(true);
 				return;	
 			}
-			if(userInfo[3].equals("1")) {//if password incorrect
+			if(user.getIsLoggedIn()==1) {//if User already connected
 				wrongLoginLabel.setText("User already connected");
 				wrongLoginLabel.setVisible(true);
 				return;	
@@ -61,8 +65,8 @@ public class LoginScreenController {
 			Stage primaryStage = new Stage();
 			/*update user info to Logged in*/
 			//ClientUI.chat.accept("updateLoggedIn " + usernameTextField.getText().trim() +" 1");
-			switch(userInfo[2]){
-			case "customer": 
+			switch(user.getUserType()){
+			case CUSTOMER: 
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen.fxml"));
 				
 				Parent root = loader.load();
@@ -76,7 +80,7 @@ public class LoginScreenController {
 				
 				break;
 				
-			case "deliveryPerson": 
+			case DELIVERY_PERSON: 
 				FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/gui/DeliveryPersonScreen.fxml"));
 				Parent root2 = loader2.load();
 				DeliveryPersonScreenController dc = loader2.getController();
@@ -88,6 +92,12 @@ public class LoginScreenController {
 				primaryStage.setTitle("Delivery Window");
 				primaryStage.setScene(scene2);
 				primaryStage.show();
+				break;
+			case CEO:
+				break;
+			case STORE_MANNAGER:
+				break;
+			default:
 				break;
 				
 			}
