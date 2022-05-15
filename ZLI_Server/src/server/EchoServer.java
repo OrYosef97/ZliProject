@@ -98,6 +98,24 @@ public class EchoServer extends AbstractServer {
 			}catch (IOException e) {
 				
 			}
+		case "updateLoggedIn": //added by gal
+			try {
+				
+				int status = Integer.parseInt(splitString[2]); //turn the status into int
+				System.out.println(splitString[1] + " " +status+ " test");
+				boolean succeeded = mysqlConnection.UpdateLoggedIn(splitString[1],status);
+				client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
+			} catch (IOException e) {
+			}
+		case "UpdateOrderDelivered": //added by gal
+			try {
+				int status = Integer.parseInt(splitString[1]); //take the ordernumber 
+				System.out.println(splitString[1] + " test");
+				boolean succeeded = DeliveryDBConnection.UpdateOrderDelivered(splitString[1]);
+				client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
+			} catch (IOException e) {
+			}
+			
 		case "disconnect":
 			try {
 				client.sendToClient("");

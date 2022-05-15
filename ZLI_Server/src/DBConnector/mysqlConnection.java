@@ -13,12 +13,13 @@ import logic.Order;
 
 public class mysqlConnection {
 	
-	private static Connection conn;
+	protected static Connection conn;
 	//maybe to add a constractor for instance of the class with connect to DB
 	@SuppressWarnings("deprecation")
 //	public mysqlConnection(String path, String userName, String password) {
 //		connectToDB(path,userName,password);
 //	}
+	
 
 	public static Connection connectToDB(String path, String userName, String password,ServerScreenController ssc) {
 		try {
@@ -55,9 +56,9 @@ public class mysqlConnection {
 			stmt.setString(1, orderNum);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next())
-				order = new Order(rs.getString(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6),rs.getString(7),rs.getString(8));
-
+				order = new Order(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getInt(4),
+						rs.getInt(5),fixDate(rs.getString(6)),rs.getString(7),rs.getString(8),rs.getString(9),rs.getInt(10));	
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -107,8 +108,8 @@ public class mysqlConnection {
 	 		{
 //				orders.append(rs.getString(1)+ "//z" + rs.getString(2) + "//z" + rs.getString(3) + "//z" + rs.getString(4)+ "//z"+ rs.getString(5)+ "//z"
 //						+rs.getString(6)+ "//z"+rs.getString(7)+ "//z"+rs.getString(8)+ "//z");
-			ordersArray.add(new Order(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getString(4),
-					rs.getString(5),rs.getString(6),fixDate(rs.getString(7)),fixDate(rs.getString(8))));	
+			ordersArray.add(new Order(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getInt(4),
+					rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getInt(10)));	
 				
 	 		}
 
@@ -157,5 +158,37 @@ public class mysqlConnection {
 		System.out.println(userInfo);
 		return userInfo.toString();
 	}
+	
+	//@author gal
+	//update userInfo to logged in
+	public static Boolean UpdateLoggedIn(String userName,int Status) {
+		PreparedStatement stmt;//
+		try {
+			stmt = conn.prepareStatement("UPDATE login SET isLoggedIn=? WHERE userName=?;");
+			stmt.setInt(1, Status);
+			stmt.setString(2, userName);
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	public static Boolean UpdateOrderDelivered(String OrderNumber) {
+		PreparedStatement stmt;//
+		try {
+			stmt = conn.prepareStatement("DELETE FROM orders WHERE orderID = ?");
+			stmt.setString(1, OrderNumber);
+			stmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
 
 }
