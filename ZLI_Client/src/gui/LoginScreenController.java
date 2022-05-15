@@ -1,9 +1,11 @@
 package gui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import client.ClientChat;
 import client.ClientUI;
+import common.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
+import enumType.*;
 public class LoginScreenController {
 
 	@FXML
@@ -37,14 +39,15 @@ public class LoginScreenController {
 			wrongLoginLabel.setText("Username and Password fields cannot be empty");
 			wrongLoginLabel.setVisible(true);
 		} else {
-			ClientUI.chat.accept("getUserInfo " + usernameTextField.getText().trim());
-			String msg = (String) ClientChat.returnedValueFromServer;
-			if (msg == null) {// if the user not found - wrong username
+			Message message=new Message(ClientMessage.LOGIN,DBControllerType.GeneralDBController, (Object)usernameTextField.getText().trim()+passwordTextField.getText().trim());
+			ClientUI.chat.accept(message);
+			message = (Message) ClientChat.returnedValueFromServer;
+			if (message.getObj() == null) {// if the user not found - wrong username
 				wrongLoginLabel.setText("User dose not exist");
 				wrongLoginLabel.setVisible(true);
 				return;
 			}
-			String userInfo[] = msg.split("//z");
+			String userInfo[] = ((String) message.getObj()).split("//z");
 			System.out.println(userInfo[1]);
 			if(!(passwordTextField.getText().trim()==userInfo[1])) {//if password incorrect
 				wrongLoginLabel.setText("Wrong username or password");

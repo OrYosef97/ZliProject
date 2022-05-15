@@ -7,6 +7,11 @@ import enumType.DBControllerType;
 import enumType.ServerMessage;
 
 public class Message implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1997977260794511165L;
+
 	// Type of the operation we want from the server to make.
     private ClientMessage ClientMessageType;
 
