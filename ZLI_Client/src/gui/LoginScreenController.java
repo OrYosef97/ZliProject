@@ -45,7 +45,7 @@ public class LoginScreenController {
 				return;
 			}
 			
-			String userInfo[] = msg.split("//z");
+			String userInfo[] = msg.split("//z"); //test
 			System.out.println(userInfo[1]);
 			if(!(passwordTextField.getText().trim().equals(userInfo[1]))) {//if password incorrect
 				wrongLoginLabel.setText("Wrong username or password");
