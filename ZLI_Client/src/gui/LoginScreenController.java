@@ -17,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import logic.User;
 
@@ -49,6 +48,7 @@ public class LoginScreenController {
 				return;
 			}
 			
+
 			User user = (User)message.getObj();
 			System.out.println("just for check "+user);
 			if(!(passwordTextField.getText().trim().equals(user.getPassword()))) {//if password incorrect
