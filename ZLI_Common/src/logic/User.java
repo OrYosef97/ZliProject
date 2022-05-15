@@ -1,8 +1,14 @@
 package logic;
 
+import java.io.Serializable;
+
 import enumType.UserType;
 
-public class User {
+public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1550299732778914656L;
 	String userName;
 	String password;
 	UserType userType;
@@ -19,10 +25,11 @@ public class User {
 		case "Delivery Person":
 			this.userType=UserType.DELIVERY_PERSON;
 			break;
-		case "Stor Mannager":
+		case "Store Mannager":
 			this.userType=UserType.STORE_MANNAGER;
 			break;
-		default://need to continue with more users
+		default:
+			System.out.println("user not found");
 			break;
 		};
 	}
