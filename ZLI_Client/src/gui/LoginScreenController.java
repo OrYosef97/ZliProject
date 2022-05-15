@@ -1,11 +1,9 @@
 package gui;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import client.ClientChat;
 import client.ClientUI;
-import common.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import enumType.*;
+
 public class LoginScreenController {
 
 	@FXML
@@ -39,38 +37,58 @@ public class LoginScreenController {
 			wrongLoginLabel.setText("Username and Password fields cannot be empty");
 			wrongLoginLabel.setVisible(true);
 		} else {
-			Message message=new Message(ClientMessage.LOGIN,DBControllerType.GeneralDBController, (Object)usernameTextField.getText().trim()+passwordTextField.getText().trim());
-			ClientUI.chat.accept(message);
-			message = (Message) ClientChat.returnedValueFromServer;
-			if (message.getObj() == null) {// if the user not found - wrong username
+			ClientUI.chat.accept("getUserInfo " + usernameTextField.getText().trim());
+			String msg = (String) ClientChat.returnedValueFromServer;
+			if (msg == null) {// if the user not found - wrong username
 				wrongLoginLabel.setText("User dose not exist");
 				wrongLoginLabel.setVisible(true);
 				return;
 			}
-			String userInfo[] = ((String) message.getObj()).split("//z");
+			
+			String userInfo[] = msg.split("//z");
 			System.out.println(userInfo[1]);
-			if(!(passwordTextField.getText().trim()==userInfo[1])) {//if password incorrect
+			if(!(passwordTextField.getText().trim().equals(userInfo[1]))) {//if password incorrect
 				wrongLoginLabel.setText("Wrong username or password");
 				wrongLoginLabel.setVisible(true);
 				return;	
 			}
-			if(userInfo[3]=="1") {//if password incorrect
+			if(userInfo[3].equals("1")) {//if password incorrect
 				wrongLoginLabel.setText("User already connected");
 				wrongLoginLabel.setVisible(true);
 				return;	
 			}
 			((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
 			Stage primaryStage = new Stage();
+			/*update user info to Logged in*/
+			//ClientUI.chat.accept("updateLoggedIn " + usernameTextField.getText().trim() +" 1");
 			switch(userInfo[2]){
 			case "customer": 
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ConnectToServerScreen.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen.fxml"));
+				
 				Parent root = loader.load();
+				loader.getController();
 				Scene scene = new Scene(root);
-				Image icon = new Image("/images.img/icon1.jpeg");
-				primaryStage.getIcons().add(icon);
-				primaryStage.setTitle("Zli Server Window");
+				//Image icon = new Image("/images.img/icon1.jpeg");
+				//primaryStage.getIcons().add(icon);
+				primaryStage.setTitle("Customer Window");
 				primaryStage.setScene(scene);
 				primaryStage.show();
+				
+				break;
+				
+			case "deliveryPerson": 
+				FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/gui/DeliveryPersonScreen.fxml"));
+				Parent root2 = loader2.load();
+				DeliveryPersonScreenController dc = loader2.getController();
+				dc.setRoleName(usernameTextField.getText().trim());
+				Scene scene2 = new Scene(root2);
+				//Image icon = new Image("/images.img/icon1.jpeg");
+				//primaryStage.getIcons().add(icon);
+				
+				primaryStage.setTitle("Delivery Window");
+				primaryStage.setScene(scene2);
+				primaryStage.show();
+				break;
 				
 			}
 
