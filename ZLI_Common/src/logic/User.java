@@ -1,8 +1,15 @@
 package logic;
 
+import java.io.Serializable;
+
 import enumType.UserType;
 
-public class User {
+public class User implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String userName;
 	String password;
 	UserType userType;
