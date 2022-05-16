@@ -2,5 +2,5 @@ package enumType;
 
 public enum ClientMessageType {
 
-	LOGIN,LOGOUT,UpdateOrderDelivered, GetClientsOrders,UpdateLoggedIn,EXIT;
+	LOGIN,LOGOUT,UpdateOrderDelivered, GetClientsOrders,UpdateLoggedIn,EXIT,GetCustomerDetails;
 }

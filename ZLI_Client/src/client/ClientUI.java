@@ -32,4 +32,5 @@ public class ClientUI extends Application {
 			e.printStackTrace();
 		}
 	}
+
 }
