@@ -95,7 +95,7 @@
                   </Icon>
                </children>
             </HBox>
-            <VBox alignment="CENTER" prefHeight="378.0" prefWidth="154.0" style="-fx-background-color: #5a7a6b; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
+            <VBox alignment="CENTER" prefHeight="378.0" prefWidth="154.0" spacing="5.0" style="-fx-background-color: #5a7a6b; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
                <children>
                   <HBox alignment="CENTER" prefHeight="53.0" prefWidth="154.0">
                      <children>
@@ -104,26 +104,26 @@
                               <Font name="Cambria Bold" size="16.0" />
                            </font>
                            <textFill>
-                              <RadialGradient centerX="0.4779735682819383" centerY="0.4848484992980957" focusAngle="-77.47" radius="1.0">
+                              <LinearGradient endX="0.1174242455850948" endY="0.9090909122517615" startX="0.1287878824002815">
                                  <stops>
                                     <Stop>
                                        <color>
                                           <Color />
                                        </color>
                                     </Stop>
-                                    <Stop offset="0.04979811574697175">
+                                    <Stop offset="0.039030955585464336">
                                        <color>
                                           <Color />
                                        </color>
                                     </Stop>
-                                    <Stop offset="0.3001378721727997">
+                                    <Stop offset="0.30821324229393016">
                                        <color>
                                           <Color red="0.1599999964237213" green="0.08479999750852585" blue="0.08479999750852585" />
                                        </color>
                                     </Stop>
-                                    <Stop offset="0.5720053835800806">
+                                    <Stop offset="0.5558546433378195">
                                        <color>
-                                          <Color red="0.03820662945508957" green="0.2947368323802948" blue="0.06385964900255203" />
+                                          <Color red="0.1379999965429306" green="0.30000001192092896" blue="0.20819999277591705" opacity="0.8601822853088379" />
                                        </color>
                                     </Stop>
                                     <Stop offset="0.7873485868102288">
@@ -137,7 +137,7 @@
                                        </color>
                                     </Stop>
                                  </stops>
-                              </RadialGradient>
+                              </LinearGradient>
                            </textFill>
                         </Label>
                         <Label fx:id="priceLable" alignment="CENTER" prefHeight="50.0" prefWidth="78.0" text="price">
@@ -173,7 +173,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <ImageView fx:id="sideImageView" fitHeight="163.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="sideImageView" fitHeight="155.0" fitWidth="163.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../../Desktop/מיני%20פרוייקט/rose1.jpg" />
                      </image>
@@ -216,11 +216,13 @@
                      </children>
                   </HBox>
                   <Pane prefHeight="14.0" prefWidth="168.0" />
-                  <Button fx:id="addToCartBtn" graphicTextGap="0.0" minHeight="18.0" minWidth="33.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="38.0" prefWidth="168.0" style="-fx-background-color: #699481; -fx-background-radius: 10;" text="Add To Cart " textFill="WHITE">
+                  <Button graphicTextGap="0.0" minHeight="18.0" minWidth="33.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="168.0" style="-fx-background-color: #699481; -fx-background-radius: 10;" text="cddfdf" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
+                  <Icon content="REMOVE" prefHeight="48.0" prefWidth="43.0" />
+                  <Icon content="ADD" prefHeight="48.0" prefWidth="43.0" />
                </children>
                <opaqueInsets>
                   <Insets />
