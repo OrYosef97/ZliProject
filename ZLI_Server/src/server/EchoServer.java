@@ -5,10 +5,11 @@ package server;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import DBConnector.DeliveryDBConnection;
+import DBConnector.*;
 import DBConnector.mysqlConnection;
 import common.Message;
 import enumType.ServerMessageType;
+import logic.CustomerDetails;
 import logic.Order;
 import logic.User;
 import ocsf.server.AbstractServer;
@@ -104,6 +105,15 @@ public class EchoServer extends AbstractServer {
 			}catch (IOException e) {
 				
 			}
+		case GetCustomerDetails: // added by yaniv
+			try {
+				System.out.println("got to echoserver");
+				ArrayList<CustomerDetails> rs=SmDBConnector.getCustomerDetails();
+				 message = new Message((rs==null)?ServerMessageType.FAILED:ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
+			}catch (IOException e) {
+				
+			}	
 		case UpdateLoggedIn: //added by gal
 			try {
 				

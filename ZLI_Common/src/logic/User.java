@@ -4,12 +4,12 @@ import java.io.Serializable;
 
 import enumType.UserType;
 
-public class User implements Serializable{
-	
+
+public class User implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1550299732778914656L;
 	String userName;
 	String password;
 	UserType userType;
@@ -26,10 +26,11 @@ public class User implements Serializable{
 		case "Delivery Person":
 			this.userType=UserType.DELIVERY_PERSON;
 			break;
-		case "Stor Mannager":
-			this.userType=UserType.STORE_MANNAGER;
+		case "Store Manager":
+			this.userType=UserType.STORE_MANAGER;
 			break;
-		default://need to continue with more users
+		default:
+			System.out.println("user not found");
 			break;
 		};
 	}

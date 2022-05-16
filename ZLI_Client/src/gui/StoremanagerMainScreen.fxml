@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootSmMainScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.StoremanagerMainScreenController">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #B9B9B9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane prefHeight="82.0" prefWidth="200.0" style="-fx-background-color: #696969;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label layoutX="20.0" layoutY="31.0" text="Zli Storemanager Menu" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria Bold" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Button fx:id="SmCreateAccountBTN" layoutX="15.0" layoutY="145.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#CreateAccount" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: black;" text="CreateAccount" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="120.0">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="SmOrdersForApprovalBTN" layoutX="16.0" layoutY="204.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#OrdersForApprovalOPT" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: black;" text="Orders For Approval" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="200.0">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="SmUpdateCustomerBTN" layoutX="15.0" layoutY="265.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#UpdateCustomerStatusOPT" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: black;" text="Update Customer Status" textFill="WHITE" AnchorPane.topAnchor="280.0">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="SmViewReportsBTN" layoutX="15.0" layoutY="319.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#ViewReportsOpt" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: black;" text="View Reports" textFill="WHITE" AnchorPane.topAnchor="360.0">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="SmLogoutBTN" layoutX="15.0" layoutY="370.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#LogOutOPT" prefHeight="25.0" prefWidth="170.0" style="-fx-background-color: black;" text="Logout" textFill="WHITE" AnchorPane.topAnchor="450.0">
+               <font>
+                  <Font name="Cambria" size="14.0" />
+               </font>
+            </Button>
+            <Separator layoutX="1.0" layoutY="82.0" prefHeight="0.0" prefWidth="200.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="SmMainScreenWindowOpt" layoutX="200.0" layoutY="82.0" prefHeight="418.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="82.0" />
+      <Pane layoutX="200.0" prefHeight="82.0" prefWidth="700.0" style="-fx-background-color: #696969;" AnchorPane.bottomAnchor="418.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>

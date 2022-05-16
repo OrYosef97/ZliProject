@@ -43,7 +43,7 @@ public class DeliveryPersonScreenController {
 			Image icon = new Image("/gui/icon1.jpeg");
 			primaryStage.getIcons().add(icon);
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
 			primaryStage.setScene(scene);
 		    OrdersScreenController oc =loader.getController();
 			oc.loadOrders();

@@ -95,7 +95,13 @@ public class LoginScreenController {
 				break;
 			case CEO:
 				break;
-			case STORE_MANNAGER:
+			case STORE_MANAGER:
+				loader = new FXMLLoader(getClass().getResource("/gui/StoremanagerMainScreen.fxml"));
+				root = loader.load();
+				scene = new Scene(root);				
+				primaryStage.setTitle("Store Manager Main Screen");
+				primaryStage.setScene(scene);
+				primaryStage.show();
 				break;
 			default:
 				break;
