@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="591.0" prefWidth="871.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox prefHeight="96.0" prefWidth="871.0" style="-fx-background-color: #cbcfbe;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="TOP_LEFT" prefHeight="39.0" prefWidth="181.0" text="Zer-Li -&gt;Create-Order" textFill="#28634b" />
+            <Pane prefHeight="21.0" prefWidth="579.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="TOP_RIGHT" prefHeight="30.0" prefWidth="110.0">
+               <children>
+                  <Button minHeight="18.0" minWidth="33.0" mnemonicParsing="false" onAction="#exit" prefHeight="27.0" prefWidth="33.0" style="-fx-background-color: #699481; -fx-background-radius: 5;" text="X" textFill="WHITE" fx:id="xBtn">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="561.0" prefWidth="263.0" style="-fx-background-color: #cbcfbe;" BorderPane.alignment="TOP_CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="170.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="62.0" prefWidth="115.0" text="Catalog">
+                     <font>
+                        <Font name="Algerian" size="19.0" />
+                     </font>
+                     <effect>
+                        <InnerShadow blurType="ONE_PASS_BOX" choke="0.21">
+                           <color>
+                              <Color red="0.12444444745779037" green="0.4421052634716034" blue="0.3891617953777313" />
+                           </color>
+                        </InnerShadow>
+                     </effect>
+                     <textFill>
+                        <LinearGradient endX="0.6287878354390461" endY="0.8446969642783656" startX="0.5501893867145885" startY="0.2803030158534195">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.006729475100942127">
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="0.9703903095558546">
+                                 <color>
+                                    <Color red="0.12093567103147507" green="0.49473685026168823" blue="0.2953762114048004" />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="0.12093567103147507" green="0.49473685026168823" blue="0.2953762114048004" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </LinearGradient>
+                     </textFill>
+                  </Label>
+                  <Pane prefHeight="62.0" prefWidth="22.0" />
+                  <Icon content="SATELLITE" prefHeight="39.0" prefWidth="49.0">
+                     <effect>
+                        <DropShadow radius="9.415" spread="0.1" width="18.66">
+                           <color>
+                              <Color red="0.1031578928232193" green="0.6631578803062439" blue="0.30849123001098633" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Icon>
+               </children>
+            </HBox>
+            <VBox alignment="CENTER" prefHeight="378.0" prefWidth="154.0" style="-fx-background-color: #5a7a6b; -fx-background-radius: 10;" VBox.vgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="53.0" prefWidth="154.0">
+                     <children>
+                        <Label fx:id="nameLable" alignment="CENTER" prefHeight="49.0" prefWidth="78.0" text="name">
+                           <font>
+                              <Font name="Cambria Bold" size="16.0" />
+                           </font>
+                           <textFill>
+                              <RadialGradient centerX="0.4779735682819383" centerY="0.4848484992980957" focusAngle="-77.47" radius="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.04979811574697175">
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.3001378721727997">
+                                       <color>
+                                          <Color red="0.1599999964237213" green="0.08479999750852585" blue="0.08479999750852585" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.5720053835800806">
+                                       <color>
+                                          <Color red="0.03820662945508957" green="0.2947368323802948" blue="0.06385964900255203" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.7873485868102288">
+                                       <color>
+                                          <Color red="0.16842105984687805" green="0.08920077979564667" blue="0.08920077979564667" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.16842105984687805" green="0.08920077979564667" blue="0.08920077979564667" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </RadialGradient>
+                           </textFill>
+                        </Label>
+                        <Label fx:id="priceLable" alignment="CENTER" prefHeight="50.0" prefWidth="78.0" text="price">
+                           <font>
+                              <Font name="Cambria Bold" size="16.0" />
+                           </font>
+                           <textFill>
+                              <RadialGradient centerX="0.4779735682819383" centerY="0.4848484992980957" focusAngle="-77.47" radius="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.006729475100942127">
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.7415881561238222">
+                                       <color>
+                                          <Color red="0.11150097101926804" green="0.6842105388641357" blue="0.3310396373271942" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.11150097101926804" green="0.6842105388641357" blue="0.3310396373271942" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </RadialGradient>
+                           </textFill>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ImageView fx:id="sideImageView" fitHeight="163.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Desktop/מיני%20פרוייקט/rose1.jpg" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="6.0" prefWidth="168.0" />
+                  <HBox alignment="CENTER" prefHeight="54.0" prefWidth="168.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="49.0" prefWidth="78.0" text="Quentity">
+                           <font>
+                              <Font name="Cambria Bold" size="16.0" />
+                           </font>
+                           <textFill>
+                              <RadialGradient centerX="0.4779735682819383" centerY="0.4848484992980957" focusAngle="-77.47" radius="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.006729475100942127">
+                                       <color>
+                                          <Color />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="0.7415881561238222">
+                                       <color>
+                                          <Color red="0.11150097101926804" green="0.6842105388641357" blue="0.3310396373271942" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.11150097101926804" green="0.6842105388641357" blue="0.3310396373271942" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </RadialGradient>
+                           </textFill>
+                        </Label>
+                        <ComboBox opacity="0.8" prefHeight="29.0" prefWidth="64.0" promptText="1" style="-fx-background-radius: 10;" />
+                     </children>
+                  </HBox>
+                  <Pane prefHeight="14.0" prefWidth="168.0" />
+                  <Button fx:id="addToCartBtn" graphicTextGap="0.0" minHeight="18.0" minWidth="33.0" mnemonicParsing="false" onAction="#addToCart" prefHeight="38.0" prefWidth="168.0" style="-fx-background-color: #699481; -fx-background-radius: 10;" text="Add To Cart " textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <Pane prefHeight="102.0" prefWidth="154.0" VBox.vgrow="ALWAYS" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="103.0" prefWidth="608.0" style="-fx-background-color: #cbcfbe; -fx-border-radius: 10 10 10 10;">
+               <children>
+                  <Pane prefHeight="75.0" prefWidth="75.0" />
+                  <Button fx:id="itemCatalogBtn1" graphicTextGap="0.0" minHeight="18.0" minWidth="33.0" mnemonicParsing="false" onAction="#openItemCatalog" prefHeight="38.0" prefWidth="208.0" style="-fx-background-color: #699481; -fx-background-radius: 10;" text="Item Catalog" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Pane prefHeight="14.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="productCatalogBtn2" graphicTextGap="0.0" minHeight="18.0" minWidth="33.0" mnemonicParsing="false" onAction="#openProductCatalog" prefHeight="38.0" prefWidth="187.0" style="-fx-background-color: #699481; -fx-background-radius: 10;" text="Product Catalog" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Pane prefHeight="75.0" prefWidth="75.0" />
+               </children>
+            </HBox>
+            <VBox prefHeight="478.0" prefWidth="608.0" style="-fx-background-color: #cbcfbe;">
+               <children>
+                  <ScrollPane fx:id="scroll" prefHeight="378.0" prefWidth="608.0">
+                     <content>
+                        <GridPane fx:id="grid" prefHeight="64.0" prefWidth="12.0">
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="608.0" style="-fx-background-color: #cbcfbe;">
+                     <children>
+                        <Button fx:id="itemCatalogBtn11" graphicTextGap="0.0" minHeight="18.0" minWidth="33.0" mnemonicParsing="false" onAction="#openCartScreen" prefHeight="38.0" prefWidth="168.0" style="-fx-background-color: #699481; -fx-background-radius: 10;" text="Continue To Cart" textFill="WHITE">
+                           <font>
+                              <Font name="Cambria Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+                  <Pane prefHeight="30.0" prefWidth="608.0" style="-fx-background-color: #cbcfbe;" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
