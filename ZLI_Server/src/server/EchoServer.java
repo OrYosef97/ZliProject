@@ -98,12 +98,14 @@ public class EchoServer extends AbstractServer {
 //			}
 		case GetClientsOrders:
 			try {
+				
 				ArrayList<Order> rs=mysqlConnection.getOrders();
 				 message = new Message((rs==null)?ServerMessageType.FAILED:ServerMessageType.SUCCEED, rs);
 				client.sendToClient(message);
 			}catch (IOException e) {
-				
+				e.printStackTrace();
 			}
+			break;
 		case UpdateLoggedIn: //added by gal
 			try {
 				
@@ -114,6 +116,7 @@ public class EchoServer extends AbstractServer {
 				client.sendToClient(new Message(succeeded?ServerMessageType.SUCCEED:ServerMessageType.FAILED,succeeded));//changed from sendToAllClient
 			} catch (IOException e) {
 			}
+			break;
 		case UpdateOrderDelivered: //added by gal
 			try {
 		
@@ -122,7 +125,7 @@ public class EchoServer extends AbstractServer {
 				client.sendToClient(new Message(succeeded?ServerMessageType.SUCCEED:ServerMessageType.FAILED,succeeded));//changed from sendToAllClient
 			} catch (IOException e) {
 			}
-			
+			break;
 		case EXIT:
 			try {
 				client.sendToClient("");
@@ -132,6 +135,7 @@ public class EchoServer extends AbstractServer {
 				client.close();
 			} catch (IOException e) {
 			}
+			break;
 		default:
 			break;
 		}
