@@ -83,7 +83,7 @@ public class LoginScreenController implements Initializable {
 			//ClientUI.chat.accept("updateLoggedIn " + usernameTextField.getText().trim() +" 1");
 			switch(user.getUserType()){
 			case CUSTOMER: 
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen1.fxml"));
 				
 				Parent root = loader.load();
 				CustomerMainScreenController cmmSC = loader.getController();
