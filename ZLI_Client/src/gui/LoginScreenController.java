@@ -1,6 +1,8 @@
 package gui;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import client.ClientChat;
 import client.ClientUI;
@@ -10,6 +12,7 @@ import enumType.ServerMessageType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,19 +23,32 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import logic.User;
 
-public class LoginScreenController {
+public class LoginScreenController implements Initializable {
 
-	@FXML
-	private Button LoginBtn;
+    @FXML
+    private Button LoginBtn;
 
-	@FXML
-	private PasswordField passwordTextField;
+    @FXML
+    private PasswordField passwordTextField;
 
-	@FXML
-	private TextField usernameTextField;
+    @FXML
+    private TextField usernameTextField;
 
-	@FXML
-	private Label wrongLoginLabel;
+    @FXML
+    private Label wrongLoginLabel;
+
+    @FXML
+    private Button xBtn;
+    
+    private User user;
+
+    
+    @FXML
+    void exit(ActionEvent event) {
+    	System.out.println();
+    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName()+" 0")); //loggedin = 0
+    	System.exit(0);
+    }
 
 	@FXML
 	void login(ActionEvent event) throws IOException {
@@ -67,10 +83,11 @@ public class LoginScreenController {
 			//ClientUI.chat.accept("updateLoggedIn " + usernameTextField.getText().trim() +" 1");
 			switch(user.getUserType()){
 			case CUSTOMER: 
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen1.fxml"));
 				
 				Parent root = loader.load();
-				loader.getController();
+				CustomerMainScreenController cmmSC = loader.getController();
+				cmmSC.setUserName(user.getUserName());
 				Scene scene = new Scene(root);
 				//Image icon = new Image("/images.img/icon1.jpeg");
 				//primaryStage.getIcons().add(icon);
@@ -95,7 +112,13 @@ public class LoginScreenController {
 				break;
 			case CEO:
 				break;
-			case STORE_MANNAGER:
+			case STORE_MANAGER:
+				loader = new FXMLLoader(getClass().getResource("/gui/StoremanagerMainScreen.fxml"));
+				root = loader.load();
+				scene = new Scene(root);				
+				primaryStage.setTitle("Store Manager Main Screen");
+				primaryStage.setScene(scene);
+				primaryStage.show();
 				break;
 			default:
 				break;
@@ -104,6 +127,12 @@ public class LoginScreenController {
 
 		}
 
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		wrongLoginLabel.setVisible(false);
+		
 	}
 
 }

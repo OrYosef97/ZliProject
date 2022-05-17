@@ -5,10 +5,11 @@ package server;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import DBConnector.DeliveryDBConnection;
+import DBConnector.*;
 import DBConnector.mysqlConnection;
 import common.Message;
 import enumType.ServerMessageType;
+import logic.CustomerDetails;
 import logic.Order;
 import logic.User;
 import ocsf.server.AbstractServer;
@@ -72,30 +73,6 @@ public class EchoServer extends AbstractServer {
 				} catch (IOException e) {
 				}
 			break;
-			
-			
-//		case "getOrder":
-//			try {//---------------------we need the row below****
-//			Order rs=mysqlConnection.getOrder(splitString[1]);
-//			client.sendToClient((Object)rs);
-//			} catch (IOException e) {
-//			}
-//		break;
-//		
-//		case "updateColor":
-//			try {
-//			boolean succeeded = mysqlConnection.updateColor(splitString[1], splitString[2]);
-//			client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
-//			}catch(IOException e) {
-//			}
-//			break;
-//			
-//		case "updateDate":
-//			try {
-//				boolean succeeded = mysqlConnection.updateDate(splitString[1], splitString[2]);
-//				client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
-//			} catch (IOException e) {
-//			}
 		case GetClientsOrders:
 			try {
 				
@@ -106,6 +83,18 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
+
+		case GetCustomerDetails: // added by yaniv
+			try {
+				System.out.println("got to echoserver");
+				ArrayList<CustomerDetails> rs=SmDBConnector.getCustomerDetails();
+				 message = new Message((rs==null)?ServerMessageType.FAILED:ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
+			}catch (IOException e) {
+				
+			}	
+			break;
+
 		case UpdateLoggedIn: //added by gal
 			try {
 				
