@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import enumType.UserType;
 
+
 public class User implements Serializable {
 	/**
 	 * 
