@@ -58,6 +58,7 @@ public class Message implements Serializable {
 		this.obj = obj;
 	}
 	
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

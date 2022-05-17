@@ -95,13 +95,15 @@ public class OrdersScreenController implements Initializable {
 
 	}
 
+	
 	public void loadOrders() {
 		ClientUI.chat.accept(new Message(ClientMessageType.GetClientsOrders,null));
 		Message message = (Message)ClientChat.returnedValueFromServer;
+		
 		ArrayList<Order> ordersArray = (ArrayList<Order>) message.getObj();
 		System.out.println("got it");
 		System.out.println("got " + ordersArray);// just for check
-		if (message.getServerMessageType()==ServerMessageType.FAILED)
+		if (message.getServerMessageType()==ServerMessageType.FAILED) 
 			return;
 		Platform.runLater(new Runnable() {
 			@Override
