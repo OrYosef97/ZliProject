@@ -1,6 +1,20 @@
 package enumType;
 
 public enum ClientMessageType {
-
-	LOGIN,LOGOUT,UpdateOrderDelivered, GetClientsOrders,UpdateLoggedIn,EXIT,GetCustomerDetails;
+	
+	/*General operations*/
+	LOGIN,LOGOUT,UpdateLoggedIn,EXIT,
+	
+	/*customer operations*/
+	GetItems, GetProducts,
+	
+	/*Store Manager operations*/
+	GetCustomerDetails,
+	
+	/*Delivery person operations*/
+	UpdateOrderDelivered,GetClientsOrders 
+	
+	
+	
+	;
 }

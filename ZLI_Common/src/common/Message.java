@@ -22,9 +22,6 @@ public class Message implements Serializable {
     
     private Object obj;
     
-    public ClientMessageType getClientMessageType() {
-		return ClientMessageType;
-	}
     //Constructor for client message
 	public Message(ClientMessageType clientMessageType, Object obj) {
 		super();
@@ -38,7 +35,9 @@ public class Message implements Serializable {
 		this.serverMessageType = serverMessageType;
 		this.obj = obj;
 	}
-
+	 public ClientMessageType getClientMessageType() {
+			return ClientMessageType;
+		}
 	public void setClientMessageType(ClientMessageType clientMessageType) {
 		ClientMessageType = clientMessageType;
 	}

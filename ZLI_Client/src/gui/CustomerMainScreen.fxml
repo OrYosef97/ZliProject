@@ -1,46 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CustomerMainScreenController">
+<BorderPane prefHeight="483.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.CustomerMainScreenController">
    <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="685.0">
+      <HBox alignment="CENTER">
          <children>
-            <Button fx:id="logOutBtn" layoutX="54.0" layoutY="422.0" mnemonicParsing="false" onAction="#OpenLogInScreen" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Logout" textFill="WHITE">
-               <font>
-                  <Font name="Cambria Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="createOrderBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="278.0" layoutY="172.0" mnemonicParsing="false" onAction="#OpenCatalogScreen" prefHeight="38.0" prefWidth="124.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Create Order" textFill="WHITE">
-               <font>
-                  <Font name="Cambria Bold" size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="canelOrderBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="278.0" layoutY="261.0" mnemonicParsing="false" onAction="#OpenCancelOrderScreen" prefHeight="38.0" prefWidth="124.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Cancel Order" textFill="WHITE">
-               <font>
-                  <Font name="Cambria Bold" size="16.0" />
-               </font>
-            </Button>
+            <VBox alignment="TOP_CENTER" prefHeight="363.0" prefWidth="682.0" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="BOTTOM" prefHeight="50.0" prefWidth="696.0" text="Welcome To Zli " textFill="#446154">
+                           <font>
+                              <Font name="Cambria Bold" size="40.0" />
+                           </font>
+                           <graphic>
+                              <Line endX="125.80067443847656" endY="-2.2781646251678467" startX="-159.89224243164062" startY="-2.278179168701172" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <Pane prefHeight="74.0" prefWidth="656.0" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="createOrderBtn" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OpenCatalogScreen" prefHeight="51.0" prefWidth="178.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Create Order" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../ZLI_Common/src/images/img/creatOrder.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Pane maxHeight="150.0" prefHeight="24.0" prefWidth="656.0" VBox.vgrow="ALWAYS" />
+                  <Button fx:id="canelOrderBtn" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OpenCancelOrderScreen" prefHeight="50.0" prefWidth="178.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Cancel Order" textFill="WHITE">
+                     <font>
+                        <Font name="Cambria Bold" size="16.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="38.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../ZLI_Common/src/images/img/cancelOrder.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="128.0" prefWidth="656.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="logOutBtn" mnemonicParsing="false" onAction="#OpenLogInScreen" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Logout" textFill="WHITE">
+                           <font>
+                              <Font name="Cambria Bold" size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="40.0" left="50.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
          </children>
-      </AnchorPane>
+      </HBox>
    </center>
    <top>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="TOP_CENTER" prefHeight="56.0" prefWidth="686.0">
+            <HBox alignment="TOP_CENTER" prefHeight="27.0" prefWidth="686.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="662.0" text="Welcome To Zli " textFill="#446154">
-                     <font>
-                        <Font name="Cambria Bold" size="40.0" />
-                     </font>
-                  </Label>
+                  <Pane prefHeight="56.0" prefWidth="130.0" />
+                  <Pane prefHeight="56.0" prefWidth="58.0" HBox.hgrow="ALWAYS" />
                   <Button mnemonicParsing="false" onAction="#exit" prefHeight="18.0" prefWidth="31.0" style="-fx-background-color: #699481;" text="X" textFill="WHITE" HBox.hgrow="ALWAYS" fx:id="xBtn">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -48,7 +93,6 @@
                   </Button>
                </children>
             </HBox>
-            <Line endX="411.29290771484375" endY="4.589557647705078E-6" startX="-100.0" stroke="#446154" />
          </children>
       </VBox>
    </top>

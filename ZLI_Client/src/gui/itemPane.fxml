@@ -1,8 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<AnchorPane fx:id="ItemPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#showInPreviewScreen" prefHeight="177.0" prefWidth="164.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="6.0" layoutY="5.0" prefHeight="162.0" prefWidth="154.0" spacing="2.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+         <children>
+            <HBox alignment="CENTER" prefHeight="37.0" prefWidth="152.0">
+               <children>
+                  <Label fx:id="nameLable" prefHeight="21.0" prefWidth="56.0" text="Name">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="priceLable" alignment="CENTER" prefHeight="18.0" prefWidth="54.0" text="Price">
+                     <font>
+                        <Font name="Cambria Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Line endX="95.41839599609375" endY="-1.5711528062820435" opacity="0.5" startX="-15.224226951599121" startY="-1.5712112188339233" />
+            <HBox alignment="CENTER" prefHeight="90.0" prefWidth="147.0">
+               <children>
+                  <ImageView fx:id="ItemImageView" fitHeight="89.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../../Desktop/מיני%20פרוייקט/rose1.jpg" />
+                     </image></ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </HBox>
+            <Line endX="95.41839599609375" endY="-1.5711528062820435" opacity="0.5" startX="-15.224226951599121" startY="-1.5712112188339233" />
+            <HBox alignment="CENTER" prefHeight="34.0" prefWidth="143.0">
+               <children>
+                  <ImageView fitHeight="37.0" fitWidth="39.0" onMouseClicked="#removeItem" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../ZLI_Common/src/images/img/deleteFromCart.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="amountLable1" alignment="CENTER" prefHeight="18.0" prefWidth="55.0" text="amount">
+                     <font>
+                        <Font name="Cambria Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="37.0" fitWidth="37.0" onMouseClicked="#addItem" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../ZLI_Common/src/images/img/addToCartIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
+      </VBox>
+   </children>
 </AnchorPane>
-

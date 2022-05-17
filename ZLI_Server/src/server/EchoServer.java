@@ -73,30 +73,6 @@ public class EchoServer extends AbstractServer {
 				} catch (IOException e) {
 				}
 			break;
-			
-			
-//		case "getOrder":
-//			try {//---------------------we need the row below****
-//			Order rs=mysqlConnection.getOrder(splitString[1]);
-//			client.sendToClient((Object)rs);
-//			} catch (IOException e) {
-//			}
-//		break;
-//		
-//		case "updateColor":
-//			try {
-//			boolean succeeded = mysqlConnection.updateColor(splitString[1], splitString[2]);
-//			client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
-//			}catch(IOException e) {
-//			}
-//			break;
-//			
-//		case "updateDate":
-//			try {
-//				boolean succeeded = mysqlConnection.updateDate(splitString[1], splitString[2]);
-//				client.sendToClient(succeeded ? (Object)"success" : (Object)"failed");//changed from sendToAllClient
-//			} catch (IOException e) {
-//			}
 		case GetClientsOrders:
 			try {
 				ArrayList<Order> rs=mysqlConnection.getOrders();
@@ -105,6 +81,7 @@ public class EchoServer extends AbstractServer {
 			}catch (IOException e) {
 				
 			}
+			break;
 		case GetCustomerDetails: // added by yaniv
 			try {
 				System.out.println("got to echoserver");
@@ -114,6 +91,7 @@ public class EchoServer extends AbstractServer {
 			}catch (IOException e) {
 				
 			}	
+			break;
 		case UpdateLoggedIn: //added by gal
 			try {
 				
@@ -124,6 +102,7 @@ public class EchoServer extends AbstractServer {
 				client.sendToClient(new Message(succeeded?ServerMessageType.SUCCEED:ServerMessageType.FAILED,succeeded));//changed from sendToAllClient
 			} catch (IOException e) {
 			}
+			break;
 		case UpdateOrderDelivered: //added by gal
 			try {
 		
@@ -132,7 +111,7 @@ public class EchoServer extends AbstractServer {
 				client.sendToClient(new Message(succeeded?ServerMessageType.SUCCEED:ServerMessageType.FAILED,succeeded));//changed from sendToAllClient
 			} catch (IOException e) {
 			}
-			
+			break;
 		case EXIT:
 			try {
 				client.sendToClient("");
