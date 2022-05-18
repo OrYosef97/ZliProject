@@ -7,6 +7,7 @@ package client;
 import java.io.IOException;
 
 import common.ChatIF;
+import common.Message;
 import ocsf.client.AbstractClient;
 
 /**
@@ -56,6 +57,8 @@ public class ClientChat extends AbstractClient {
 	public void handleMessageFromServer(Object msg) {
 		System.out.println("--> handleMessageFromServer");
 		returnedValueFromServer = msg;
+		if(returnedValueFromServer instanceof Message)
+			
 		awaitResponse = false;
 	}
 

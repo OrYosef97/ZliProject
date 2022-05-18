@@ -3,11 +3,19 @@ package logic;
 import javafx.scene.image.Image;
 
 public class Item {
-	String id;
-	String name;
-	String type;
-	Double price;
-	Image image;
+	private String id;
+	private String name;
+	private String type;
+	private Double price;
+	private Image image;
+	
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	private int amount=0;
 	//constructor with all fields
 	public Item(String id, String name, String type, Double price, Image image) {
 		super();

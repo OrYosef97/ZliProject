@@ -50,7 +50,7 @@ public class CustomerMainScreenController {
 		
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CreateOrderScreen.fxml"));
 		Parent root = loader.load();
-		CreatOrderScreenController coSC = loader.getController();
+		CreateOrderScreenController coSC = loader.getController();
 		coSC.setUserName(userName);
 		Scene scene = new Scene(root);
 		
