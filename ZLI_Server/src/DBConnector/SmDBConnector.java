@@ -15,7 +15,7 @@ public class SmDBConnector {
 		Statement stmt;
 		System.out.println("got to db connector");
 		try {
-			stmt=mysqlConnection.conn.createStatement();
+			stmt=GeneralConnector.conn.createStatement();
 			ArrayList<CustomerDetails> customerDetailsArray = new ArrayList<CustomerDetails>();
 			//StringBuilder orders=new StringBuilder();
 			ResultSet rs=stmt.executeQuery("SELECT * from customerdetails;");

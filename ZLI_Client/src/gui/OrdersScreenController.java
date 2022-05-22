@@ -89,15 +89,15 @@ public class OrdersScreenController implements Initializable {
 		PriceColum.setCellValueFactory(new PropertyValueFactory<Order, Integer>("price"));
 		// orderDetailsColum.setCellValueFactory(new PropertyValueFactory<Order,
 		// String>("Details"));
-		BranchColum.setCellValueFactory(new PropertyValueFactory<Order, String>("Shop"));
-		DeliveryDateColum.setCellValueFactory(new PropertyValueFactory<Order, String>("orderDate"));
+		BranchColum.setCellValueFactory(new PropertyValueFactory<Order, String>("branch"));
+		DeliveryDateColum.setCellValueFactory(new PropertyValueFactory<Order, String>("deliveryDate"));
 		OrdersTable.setItems(orders);
 
 	}
 
 	
 	public void loadOrders() {
-		ClientUI.chat.accept(new Message(ClientMessageType.GetClientsOrders,null));
+		ClientUI.chat.accept(new Message(ClientMessageType.GetClientsOrders,""));
 		Message message = (Message)ClientChat.returnedValueFromServer;
 		
 		ArrayList<Order> ordersArray = (ArrayList<Order>) message.getObj();

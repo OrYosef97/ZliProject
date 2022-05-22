@@ -1,29 +1,30 @@
 package logic;
 
-import javafx.scene.image.Image;
+import java.io.Serializable;
 
-public class Item {
+@SuppressWarnings("serial")
+public class Item implements Serializable {
 	private String id;
 	private String name;
 	private String type;
 	private Double price;
-	private Image image;
+	private String imageUrl;
+	private	Integer amount=0;
 	
-	public int getAmount() {
+	public Integer getAmount() {
 		return amount;
 	}
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
-	private int amount=0;
 	//constructor with all fields
-	public Item(String id, String name, String type, Double price, Image image) {
+	public Item(String id, String name, String type, Double price, String imageUrl) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.type = type;
 		this.price = price;
-		this.image = image;
+		this.imageUrl = imageUrl;;
 	}
 	//constructor without image field
 	public Item(String id, String name, String type, Double price) {
@@ -57,12 +58,23 @@ public class Item {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	public Image getImage() {
-		return image;
+	public String getImageUrl() {
+		return imageUrl;
 	}
-	public void setImage(Image image) {
-		this.image = image;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	public void addOneItem(){
+		amount++;
+	}
+	public void removeOneItem(){
+		if(amount>0)amount--;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		Item another = (Item)obj;
+		return this.id==another.getId();
+	}
 
 }

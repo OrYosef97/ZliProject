@@ -1,5 +1,6 @@
 package DBConnector;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,11 +9,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import common.Converter;
 import gui.ServerScreenController;
+import logic.Item;
 import logic.Order;
+import logic.Product;
 import logic.User;
 
-public class mysqlConnection {
+public class GeneralConnector {
 	
 	protected static Connection conn;
 	//maybe to add a constractor for instance of the class with connect to DB
@@ -49,55 +53,48 @@ public class mysqlConnection {
 		return conn;
 	}
 
-	public static Order getOrder(String orderNum) {
-		Order order = null;
-		PreparedStatement stmt;//
+	
+
+	public static ArrayList<Product> getProducts() throws  Exception {
+		Statement stmt;
 		try {
-			stmt = conn.prepareStatement("SELECT * FROM orders where orderNumber = ?");
-			stmt.setString(1, orderNum);
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next())
-				order = new Order(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getInt(4),
-						rs.getInt(5),fixDate(rs.getString(6)),rs.getString(7),rs.getString(8),rs.getString(9),rs.getInt(10));	
-						
+			stmt=conn.createStatement();
+			ArrayList<Product> productArray = new ArrayList<Product>();
+			ArrayList<Item> itemsArray= new ArrayList<Item>();
+			ResultSet rs=stmt.executeQuery("SELECT * from products;");
+			while(rs.next())
+	 		{
+				itemsArray=(ArrayList<Item>)Converter.byteArrayToObjectIS(rs.getObject("itemsIncluded")).readObject();
+				productArray.add(new Product(rs.getInt("PID"), rs.getString("name"), rs.getString("type"), rs.getDouble("price"),
+						rs.getString("mainColor"), rs.getString("Image"), itemsArray,rs.getString("isSelfMade")));
+	 		}
+			System.out.println(productArray);
+			return productArray;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			return null;			
 		}
-		System.out.println(order);
-		return order;
+	}
+	
+	public static ArrayList<Item> getItems() {
+		Statement stmt;
+		try {
+			stmt=conn.createStatement();
+			ArrayList<Item> itemsArray = new ArrayList<>();
+			ResultSet rs=stmt.executeQuery("SELECT * from items;");
+			while(rs.next())
+	 		{
+				itemsArray .add(new Item(rs.getString("itemID"), rs.getString("name"), rs.getString("type"), rs.getDouble("price"),rs.getString("image")));
+	 		}
+			System.out.println(itemsArray );
+			return itemsArray ;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;			
+		}
 	}
 	
 	
-	
-	public static Boolean updateColor(String color, String orderNum) {//maybe with order num
-		PreparedStatement stmt;
-		try {
-			stmt = conn.prepareStatement("UPDATE orders SET color=? WHERE orderNumber=?; ");
-			stmt.setString(1, color);
-			stmt.setString(2, orderNum);
-			stmt.executeUpdate();
-			return true;//change to relevant
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	public static Boolean updateDate(String date,String orderNum) {
-		PreparedStatement stmt;
-		try {
-			stmt = conn.prepareStatement("UPDATE orders SET date=? WHERE orderNumber=?; ");
-			stmt.setString(1, date);
-			stmt.setString(2, orderNum);
-			stmt.executeUpdate();
-			return true;//change to relevant
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
 	public static ArrayList<Order> getOrders( ) {
 		Statement stmt;
 		try {
@@ -109,9 +106,10 @@ public class mysqlConnection {
 	 		{
 //				orders.append(rs.getString(1)+ "//z" + rs.getString(2) + "//z" + rs.getString(3) + "//z" + rs.getString(4)+ "//z"+ rs.getString(5)+ "//z"
 //						+rs.getString(6)+ "//z"+rs.getString(7)+ "//z"+rs.getString(8)+ "//z");
-			ordersArray.add(new Order(rs.getString(1),rs.getInt(2),rs.getString(3),rs.getInt(4),
-					rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getInt(10)));	
-				
+			ordersArray.add(new Order(rs.getString("orderID"),rs.getString("custumerName"),rs.getString("greeting"),rs.getInt("isSelfMade")
+					,rs.getString("orderDetails"), rs.getInt("hasDelivery"),rs.getString("address"),fixDate(rs.getString("deliveryDate")),
+					rs.getString("branch"),null,rs.getString("paymentDetails"),rs.getInt("price"),rs.getString("status")));	
+								/*rs.getString("products")*/
 	 		}
 
 			System.out.println(ordersArray);
@@ -130,18 +128,8 @@ public class mysqlConnection {
 	}
 
 
-	public static void CloseConnection() throws SQLException {//maybe gets con as parameter
-		// con.close();
-		try {
-			if (conn != null && !conn.isClosed()) {
-				conn.close();
-			}
-		} catch (Exception e) {
-			throw e;
-		}
-
-	}
-	
+	//@author Or
+	//Get User if exist by name
 	public static User getUserInfo(String userName) {
 		User user = null;
 		PreparedStatement stmt;//
@@ -177,11 +165,31 @@ public class mysqlConnection {
 		return true;
 	}
 	
-	public static Boolean UpdateOrderDelivered(String OrderNumber) {
+	public static void CloseConnection() throws SQLException {//maybe gets con as parameter
+		// con.close();
+		try {
+			if (conn != null && !conn.isClosed()) {
+				conn.close();
+			}
+		} catch (Exception e) {
+			throw e;
+		}
+
+	}
+	
+	private static boolean StoreProduct(Product product) throws Exception {
 		PreparedStatement stmt;//
 		try {
-			stmt = conn.prepareStatement("DELETE FROM orders WHERE orderID = ?");
-			stmt.setString(1, OrderNumber);
+			stmt = conn.prepareStatement("INSERT INTO `zliproject`.`products` (`PID`, `name`, `type`, `price`, `mainColor`, `itemsIncluded`, `isSelfMade`)"
+					+ "VALUES ('?', '?', '?', '?', '?', '?', '?');");
+			stmt.setInt(1, product.getId());
+			stmt.setString(2, product.getName());
+			stmt.setString(3,product.getType());
+			stmt.setDouble(4, product.getPrice());
+			stmt.setString(5, product.getMainColor());
+			stmt.setString(5, product.getImage());
+			stmt.setBinaryStream(7, Converter.objectToByteArrayIS(product.getItemsIncluded()));
+			stmt.setInt(8, Integer.parseInt(product.getIsSelfMade()));
 			stmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -190,6 +198,10 @@ public class mysqlConnection {
 		}
 		return true;
 	}
-	
+
 
 }
+
+	
+
+

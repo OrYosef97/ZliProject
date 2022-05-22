@@ -14,7 +14,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="687.0" style="-fx-background-color: #195882;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ServerScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="687.0" style="-fx-background-color: #195882;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ServerScreenController">
    <children>
       <AnchorPane layoutX="31.0" layoutY="75.0" prefHeight="419.0" prefWidth="358.0" style="-fx-background-color: #b8d0e0;">
          <children>
@@ -62,7 +62,7 @@
                <font>
                   <Font name="Georgia Bold" size="25.0" />
                </font></Label>
-            <PasswordField fx:id="dbPasswordTxtField" layoutX="157.0" layoutY="279.0" text="321Gg321!" />
+            <PasswordField fx:id="dbPasswordTxtField" layoutX="157.0" layoutY="279.0" text="or97yosef" />
          </children>
       </AnchorPane>
       <VBox layoutX="434.0" layoutY="75.0" prefHeight="200.0" prefWidth="212.0" style="-fx-background-color: #b8d0e0;">

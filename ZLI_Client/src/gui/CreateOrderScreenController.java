@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import client.ClientChat;
 import client.ClientUI;
 import common.Message;
 import enumType.ClientMessageType;
-import enumType.ServerMessageType;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -81,18 +79,21 @@ public class CreateOrderScreenController implements Initializable {
 
     @FXML
     void addToCart(ActionEvent event) {
+    	Item item = presentedItemController.getItem();
     	int i = itemsArray.indexOf(presentedItemController.getItem());//get item index
-    	int amount = presentedItemController.getItem().getAmount();//get current amount
-    	itemsArray.get(i).setAmount(++amount);
-    	presentedItemController.add();
-    	amountLable.setText(Integer.toString(amount));
-    	
+    	if(!itemsArray.contains(item)) {
+    		itemsArray.add(item);
+    		i = itemsArray.indexOf(presentedItemController.getItem());
+    	}
+    	itemsArray.get(i).addOneItem();
+    	amountLable.setText(itemsArray.get(i).getAmount().toString());
     }
 
     @FXML
     void exit(ActionEvent event) {
     	System.out.println();
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
+    	Message msg = new Message(ClientMessageType.EXIT,userName+" 0");
+    	ClientUI.chat.accept(msg); //loggedin = 0
     	System.exit(0);
     }
 
@@ -113,13 +114,10 @@ public class CreateOrderScreenController implements Initializable {
 
     @FXML
     void removeFromCart(ActionEvent event) {
-    	int i = itemsArray.indexOf(presentedItemController.getItem());//get item index
-    	int amount = presentedItemController.getItem().getAmount();//get current amount
-    	if(amount<=0)return;
-    	itemsArray.get(i).setAmount(--amount);
-    	presentedItemController.remove();
-    	amountLable.setText(Integer.toString(amount));
-    	
+    	Item item = presentedItemController.getItem();
+    	int i = itemsArray.indexOf(item);//get item index
+    	if(itemsArray.contains(item))
+    		itemsArray.get(i).removeOneItem();
     }
     
     public void setSidePane(ItemPaneController ipc) {
@@ -132,6 +130,7 @@ public class CreateOrderScreenController implements Initializable {
 				nameLable.setText(item.getName());
 				priceLable.setText(Double.toString(item.getPrice()));
 				amountLable.setText(Integer.toString(item.getAmount()));
+				sideImageView.setImage(new Image(item.getImageUrl()));
 				
 			}
 		});
@@ -146,13 +145,13 @@ public class CreateOrderScreenController implements Initializable {
 //			//need to load the data here
 //		}
 //		
-		Image image = new Image("/images.img/bb.jpeg");
+		//Image image = new Image("/images.img/bb.jpeg");
 		Double price = 15.0;
-		Item item = new Item("052", "Rose", "Flower", price, image);
+		Item item = new Item("052", "Rose", "Flower", price, "/images.img/flowers.PNG");
 		int row =0;
 		int col=0;
 		try {
-		for(int i=0;i<15;i++) {
+		for(int i=0;i<15;i++) {	
 			itemsArray.add(item);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ItemPane.fxml"));
 				AnchorPane anc = loader.load();

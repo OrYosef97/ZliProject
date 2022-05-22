@@ -78,7 +78,7 @@
                               <Font name="Cambria Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="amountLable" alignment="CENTER" prefHeight="49.0" prefWidth="78.0" text="num">
+                        <Label fx:id="amountLable" alignment="CENTER" prefHeight="49.0" prefWidth="78.0" text="0">
                            <font>
                               <Font name="Cambria Bold" size="16.0" />
                            </font>
@@ -149,15 +149,19 @@
             </HBox>
             <VBox prefHeight="438.0" prefWidth="626.0" style="-fx-background-color: #cbcfbe;">
                <children>
-                  <ScrollPane fx:id="scroll" prefHeight="378.0" prefWidth="608.0" VBox.vgrow="NEVER">
-                     <content>
-                        <GridPane fx:id="grid" prefHeight="34.0" prefWidth="18.0">
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                     </content>
-                  </ScrollPane>
+                  <HBox alignment="CENTER" style="-fx-background-color: #cbcfbe;">
+                     <children>
+                        <ScrollPane fx:id="scroll" prefHeight="378.0" prefWidth="608.0">
+                           <content>
+                              <GridPane fx:id="grid" prefHeight="34.0" prefWidth="18.0">
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="157.0" prefWidth="626.0" style="-fx-background-color: #cbcfbe;">
                      <children>
                         <Button fx:id="continueToCartBtn" contentDisplay="RIGHT" graphicTextGap="0.0" minHeight="18.0" minWidth="33.0" mnemonicParsing="false" onAction="#openCartScreen" prefHeight="55.0" prefWidth="168.0" style="-fx-background-color: #699481; -fx-background-radius: 10;" text="Continue To Cart" textFill="WHITE">

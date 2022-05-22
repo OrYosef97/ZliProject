@@ -4,7 +4,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import DBConnector.mysqlConnection;
+import DBConnector.GeneralConnector;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,7 +64,7 @@ public class ServerScreenController implements Initializable {
 
 	@FXML
 	void connectToServer(ActionEvent event) throws SQLException {
-		mysqlConnection.connectToDB(dbNameTxtField.getText().trim(), dbUserTxtField.getText().trim(),
+		GeneralConnector.connectToDB(dbNameTxtField.getText().trim(), dbUserTxtField.getText().trim(),
 				dbPasswordTxtField.getText().trim(), this);
 		ServerUI.runServer("5555");
 		setTextToConsole("Server listening for connections on port ");
@@ -78,7 +78,7 @@ public class ServerScreenController implements Initializable {
 
 	@FXML
 	void disconnectFromServer(ActionEvent event) throws SQLException {
-		mysqlConnection.CloseConnection();// maybe need to send connection as param
+		GeneralConnector.CloseConnection();// maybe need to send connection as param
 		System.out.println("Server Disconnected");
 		System.exit(0);
 	}
@@ -87,11 +87,10 @@ public class ServerScreenController implements Initializable {
 
 		String clientInfo[] = client.toString().split(" ");
 		Client c = new Client(clientInfo[1], clientInfo[0], "Connected");
+		clients.add(c);
 		Platform.runLater(new Runnable() {
-
 			@Override
 			public void run() {
-					clients.add(c);
 					connectedClientsTable.refresh();// maybe needed here
 			}
 		});
@@ -102,10 +101,10 @@ public class ServerScreenController implements Initializable {
 		String clientInfo[] = client.toString().split(" ");
 		Client c = new Client(clientInfo[1], clientInfo[0], "Connected");
 		// Client cNewStatus = new Client(clientInfo[1],clientInfo[0],"Disconnected");
+		clients.remove(c);
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				clients.remove(c);
 				System.out.println("got here");
 				// clients.add(cNewStatus);
 				connectedClientsTable.refresh();// maybe needed here

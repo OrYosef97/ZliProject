@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -53,29 +52,11 @@
             <Line endX="95.41839599609375" endY="-1.5711528062820435" opacity="0.5" startX="-15.224226951599121" startY="-1.5712112188339233" />
             <HBox alignment="CENTER" prefHeight="34.0" prefWidth="143.0">
                <children>
-                  <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#removeItem" style="-fx-background-radius: 50; -fx-background-color: #f5c1ca;">
-                     <graphic>
-                        <ImageView fitHeight="37.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../ZLI_Common/src/images/img/deleteFromCart.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Label fx:id="amountLable" alignment="CENTER" prefHeight="18.0" prefWidth="52.0" text="0">
                      <font>
                         <Font name="Cambria Bold" size="12.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#addItem" style="-fx-background-radius: 50; -fx-background-color: #c1f5f1;">
-                     <graphic>
-                        <ImageView fitHeight="37.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../ZLI_Common/src/images/img/addToCartIcon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                </children>
             </HBox>
          </children>

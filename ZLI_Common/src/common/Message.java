@@ -1,6 +1,7 @@
 package common;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import enumType.ClientMessageType;
 import enumType.ServerMessageType;
@@ -22,7 +23,14 @@ public class Message implements Serializable {
     
     private Object obj;
     
-    //Constructor for client message
+    //private ArrayList<Object> returnedArray;
+    
+//    public Message(ServerMessageType serverMessageType, ArrayList<Object> returnedArray) {
+//		super();
+//		this.serverMessageType = serverMessageType;
+//		this.returnedArray = returnedArray;
+//	}
+	//Constructor for client message
 	public Message(ClientMessageType clientMessageType, Object obj) {
 		super();
 		ClientMessageType = clientMessageType;

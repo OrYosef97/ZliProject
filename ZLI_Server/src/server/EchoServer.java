@@ -2,15 +2,17 @@
 // "Object Oriented Software Engineering" and is issued under the open-source
 // license found at www.lloseng.com 
 package server;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
 import DBConnector.*;
-import DBConnector.mysqlConnection;
+import DBConnector.GeneralConnector;
 import common.Message;
 import enumType.ServerMessageType;
 import logic.CustomerDetails;
 import logic.Order;
+import logic.Product;
 import logic.User;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -28,12 +30,12 @@ import ocsf.server.ConnectionToClient;
 
 public class EchoServer extends AbstractServer {
 	// Class variables *************************************************
-	//private ServerScreenController serverSController;
+	// private ServerScreenController serverSController;
 
 	/**
 	 * The default port to listen on.
 	 */
-	 final public static int DEFAULT_PORT = 5555;
+	final public static int DEFAULT_PORT = 5555;
 
 	// Constructors ****************************************************
 
@@ -46,7 +48,7 @@ public class EchoServer extends AbstractServer {
 
 	public EchoServer(int port) {
 		super(port);
-		//this.serverSController=serverSController;
+		// this.serverSController=serverSController;
 	}
 
 	// Instance methods ************************************************
@@ -61,25 +63,34 @@ public class EchoServer extends AbstractServer {
 	public void handleMessageFromClient(Object msg, ConnectionToClient client)
 
 	{
-		Message message = (Message)msg; 
+		Message message = (Message) msg;
 		System.out.println("Message received: " + msg + " from " + client);
 		String splitString[] = message.toString().split(" ");
 		switch (message.getClientMessageType()) {
 		case LOGIN:
-			try {//---------------------we need the row below****
-				User rs= mysqlConnection.getUserInfo(splitString[0]);
-				message=new Message((rs==null)?ServerMessageType.FAILED:ServerMessageType.SUCCEED, rs);
+			try {// ---------------------we need the row below****
+				User rs = GeneralConnector.getUserInfo(splitString[0]);
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
 				client.sendToClient(message);
-				} catch (IOException e) {
-				}
+			} catch (IOException e) {
+			}
 			break;
+		case GetProducts:
+			try {
+
+				ArrayList<Product> rs = GeneralConnector.getProducts();
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		case GetClientsOrders:
 			try {
-				
-				ArrayList<Order> rs=mysqlConnection.getOrders();
-				 message = new Message((rs==null)?ServerMessageType.FAILED:ServerMessageType.SUCCEED, rs);
+
+				ArrayList<Order> rs = GeneralConnector.getOrders();
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
 				client.sendToClient(message);
-			}catch (IOException e) {
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			break;
@@ -87,40 +98,47 @@ public class EchoServer extends AbstractServer {
 		case GetCustomerDetails: // added by yaniv
 			try {
 				System.out.println("got to echoserver");
-				ArrayList<CustomerDetails> rs=SmDBConnector.getCustomerDetails();
-				 message = new Message((rs==null)?ServerMessageType.FAILED:ServerMessageType.SUCCEED, rs);
+				ArrayList<CustomerDetails> rs = SmDBConnector.getCustomerDetails();
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
 				client.sendToClient(message);
-			}catch (IOException e) {
-				
-			}	
+			} catch (IOException e) {
+
+			}
 			break;
 
-		case UpdateLoggedIn: //added by gal
+		case UpdateLoggedIn: // added by gal
 			try {
-				
-				int status = Integer.parseInt(splitString[1]); //turn the status into int
-				System.out.println(splitString[0] + " " +status+ " test");
-				if(status==0)ServerUI.aFrame.delClient(client,getNumberOfClients());//update server gui
-				boolean succeeded = mysqlConnection.UpdateLoggedIn(splitString[0],status);
-				client.sendToClient(new Message(succeeded?ServerMessageType.SUCCEED:ServerMessageType.FAILED,succeeded));//changed from sendToAllClient
+
+				int status = Integer.parseInt(splitString[1]); // turn the status into int
+				System.out.println(splitString[0] + " " + status + " test");
+				if (status == 0)
+					ServerUI.aFrame.delClient(client, getNumberOfClients());// update server gui
+				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0], status);
+				client.sendToClient(
+						new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
+																													// from
+																													// sendToAllClient
 			} catch (IOException e) {
 			}
 			break;
-		case UpdateOrderDelivered: //added by gal
+		case UpdateOrderDelivered: // added by gal
 			try {
-		
+
 				System.out.println(splitString[0] + " test");
-				boolean succeeded = DeliveryDBConnection.UpdateOrderDelivered(splitString[0]);
-				client.sendToClient(new Message(succeeded?ServerMessageType.SUCCEED:ServerMessageType.FAILED,succeeded));//changed from sendToAllClient
+				boolean succeeded = DeliveryDBConnector.UpdateOrderDelivered(splitString[0]);
+				client.sendToClient(
+						new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
+																													// from
+																													// sendToAllClient
 			} catch (IOException e) {
 			}
 			break;
 		case EXIT:
 			try {
-				client.sendToClient("");
-				ServerUI.aFrame.delClient(client,getNumberOfClients());
-				boolean succeeded =mysqlConnection.UpdateLoggedIn(splitString[0],0);
-				System.out.println("client "+client+" Exit operation "+(succeeded?"succeed":"faild"));
+				client.sendToClient("closed");
+				ServerUI.aFrame.delClient(client, getNumberOfClients());
+				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0], 0);
+				System.out.println("client " + client + " Exit operation " + (succeeded ? "succeed" : "faild"));
 				client.close();
 			} catch (IOException e) {
 			}
@@ -148,7 +166,7 @@ public class EchoServer extends AbstractServer {
 		System.out.println("Server has stopped listening for connections.");
 //		ServerUI.aFrame.setTextToConsole("Server has stopped listening for connections.");
 	}
-	
+
 	@Override
 	protected void clientConnected(ConnectionToClient client) {
 		super.clientConnected(client);
