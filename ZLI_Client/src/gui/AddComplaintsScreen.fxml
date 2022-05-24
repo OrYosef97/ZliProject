@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AddComplaintsScreenController">
+   <children>
+      <ImageView fitHeight="501.0" fitWidth="685.0" layoutX="5.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../Desktop/ZliServer/bb.jpeg" />
+         </image>
+      </ImageView>
+      <Line endX="412.199951171875" endY="1.52587890625E-5" layoutX="184.0" layoutY="64.0" startX="-100.0" stroke="#446154" />
+      <Button fx:id="backBtn" layoutX="54.0" layoutY="422.0" mnemonicParsing="false" onAction="#Back" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Back" textFill="WHITE">
+         <font>
+            <Font name="Cambria Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" prefHeight="50.0" prefWidth="495.0" text="Add Complaint" textFill="#446154">
+         <font>
+            <Font name="Cambria Bold" size="40.0" />
+         </font>
+      </Label>
+      <Button layoutX="634.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" prefHeight="18.0" prefWidth="31.0" style="-fx-background-color: #699481;" text="X" textFill="WHITE" fx:id="xBtn">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label layoutX="54.0" layoutY="88.0" text="Please fill all the fields, and press &quot;Confirm&quot;:">
+         <font>
+            <Font name="Cambria" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="54.0" layoutY="131.0" text="Customer's Name:" />
+      <Label layoutX="54.0" layoutY="168.0" text="Customer's ID: " />
+      <Label layoutX="54.0" layoutY="204.0" text="Date:" />
+      <Label layoutX="54.0" layoutY="242.0" text="Enter Complaint:" />
+      <TextArea fx:id="complaintTextArea" layoutX="54.0" layoutY="267.0" prefHeight="140.0" prefWidth="598.0" />
+      <TextField fx:id="cutomerNameField" layoutX="163.0" layoutY="127.0" promptText="Enter Name" />
+      <TextField fx:id="idField" layoutX="162.0" layoutY="164.0" prefHeight="26.0" prefWidth="150.0" promptText="Enter ID" />
+      <DatePicker fx:id="dateField" layoutX="162.0" layoutY="199.0" prefHeight="26.0" prefWidth="150.0" promptText="Enter Date" />
+      <Button fx:id="confirmBtn" layoutX="543.0" layoutY="422.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="30.0" prefWidth="88.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Confirm" textFill="WHITE">
+         <font>
+            <Font name="Cambria Bold" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

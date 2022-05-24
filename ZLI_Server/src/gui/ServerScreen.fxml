@@ -62,7 +62,7 @@
                <font>
                   <Font name="Georgia Bold" size="25.0" />
                </font></Label>
-            <PasswordField fx:id="dbPasswordTxtField" layoutX="157.0" layoutY="279.0" text="or97yosef" />
+            <PasswordField fx:id="dbPasswordTxtField" layoutX="157.0" layoutY="279.0" onKeyPressed="#EnterPressed" text="or97yosef" />
          </children>
       </AnchorPane>
       <VBox layoutX="434.0" layoutY="75.0" prefHeight="200.0" prefWidth="212.0" style="-fx-background-color: #b8d0e0;">

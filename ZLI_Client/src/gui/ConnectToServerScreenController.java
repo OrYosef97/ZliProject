@@ -1,5 +1,7 @@
 package gui;
 
+import java.sql.SQLException;
+
 import client.ClientPortal;
 import client.ClientUI;
 import javafx.event.ActionEvent;
@@ -12,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 public class ConnectToServerScreenController {
@@ -48,5 +52,7 @@ public class ConnectToServerScreenController {
 			}
 		}
 	}
+	
+	
 
 }

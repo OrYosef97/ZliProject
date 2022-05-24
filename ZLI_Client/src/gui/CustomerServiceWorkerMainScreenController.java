@@ -1,6 +1,5 @@
 package gui;
 
-import client.ClientChat;
 import client.ClientUI;
 import common.Message;
 import enumType.ClientMessageType;
@@ -10,12 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class DeliveryPersonScreenController {
+public class CustomerServiceWorkerMainScreenController {
 
     @FXML
     private Button logOutBtn;
@@ -27,14 +25,12 @@ public class DeliveryPersonScreenController {
     private Button createOrderBtn;
     
     String userName;
-    
-   
 
     @FXML
-    void ChooseOrder(ActionEvent event) {
+    void AddComplaint(ActionEvent event) {
     	try {
 			((Node) event.getSource()).getScene().getWindow().hide();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/OrdersScreen.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/AddComplaintsScreen.fxml"));
 			Pane root = loader.load();
 			// ClientMainScreenController clientMainScreenController =
 			// loader.getController();
@@ -45,18 +41,19 @@ public class DeliveryPersonScreenController {
 			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
 			primaryStage.setScene(scene);
-		    OrdersScreenController oc =loader.getController();
-		    oc.SetUserName(userName);
-			oc.loadOrders();
+			AddComplaintsScreenController ac = new AddComplaintsScreenController ();
+			ac.SetUserName(userName);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }
+    
 
     @FXML
     void LogOut(ActionEvent event) {
     	try {
+            System.out.println(userName + " HI");
     		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,userName+" 0"));
 			((Node) event.getSource()).getScene().getWindow().hide();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
@@ -82,8 +79,8 @@ public class DeliveryPersonScreenController {
     	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
     	System.exit(0);
     }
-
-	public void setRoleName(String roleName) {
+    
+    public void SetUserName(String roleName) {
 		userName = roleName;
 	}
 

@@ -118,7 +118,7 @@ public class StoremanagerCreateAccountController implements Initializable {
 	private void loadData() throws IOException {
 
 		try {
-			ClientUI.chat.accept(new Message(ClientMessageType.GetCustomerDetails,null));
+			ClientUI.chat.accept(new Message(ClientMessageType.GetCustomerDetails,""));
 			Message message = (Message) ClientChat.returnedValueFromServer;
 			if(message.getServerMessageType() == ServerMessageType.FAILED)
 			{

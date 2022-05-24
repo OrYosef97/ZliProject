@@ -4,6 +4,7 @@
 package server;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import DBConnector.*;
@@ -120,6 +121,22 @@ public class EchoServer extends AbstractServer {
 																													// sendToAllClient
 			} catch (IOException e) {
 			}
+			break;	
+		case AddComplaint: // added by gal
+			try {
+				ArrayList<Object> data = (ArrayList<Object>) message.getObj();
+				Integer CustomerID = (Integer) data.get(0);
+				System.out.println(CustomerID);
+		    	String Date = (String) data.get(1).toString();
+		    	System.out.println(Date);
+		    	String Text = (String) data.get(2);
+		    	System.out.println(Text);
+				boolean succeeded = CustomerServiceWorkerDBConnector.UpdateComplaint(CustomerID, Date, Text);
+				client.sendToClient(new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
+																													// from
+																													// sendToAllClient
+			} catch (IOException e) {
+			}
 			break;
 		case UpdateOrderDelivered: // added by gal
 			try {
@@ -135,10 +152,10 @@ public class EchoServer extends AbstractServer {
 			break;
 		case EXIT:
 			try {
-				client.sendToClient("closed");
 				ServerUI.aFrame.delClient(client, getNumberOfClients());
-				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0], 0);
+				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0],(Integer)0);
 				System.out.println("client " + client + " Exit operation " + (succeeded ? "succeed" : "faild"));
+				client.sendToClient(" ");
 				client.close();
 			} catch (IOException e) {
 			}

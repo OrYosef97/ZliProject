@@ -106,7 +106,7 @@ public class GeneralConnector {
 	 		{
 //				orders.append(rs.getString(1)+ "//z" + rs.getString(2) + "//z" + rs.getString(3) + "//z" + rs.getString(4)+ "//z"+ rs.getString(5)+ "//z"
 //						+rs.getString(6)+ "//z"+rs.getString(7)+ "//z"+rs.getString(8)+ "//z");
-			ordersArray.add(new Order(rs.getString("orderID"),rs.getString("custumerName"),rs.getString("greeting"),rs.getInt("isSelfMade")
+			ordersArray.add(new Order(rs.getString("orderID"),rs.getString("customerName"),rs.getString("greeting"),rs.getInt("isSelfMade")
 					,rs.getString("orderDetails"), rs.getInt("hasDelivery"),rs.getString("address"),fixDate(rs.getString("deliveryDate")),
 					rs.getString("branch"),null,rs.getString("paymentDetails"),rs.getInt("price"),rs.getString("status")));	
 								/*rs.getString("products")*/
