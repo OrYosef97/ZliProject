@@ -9,8 +9,8 @@ public class Product implements Serializable {
 	private String name;
 	private String type;
 	private Double price;
-	private String mainColor;
 	private String imageUrl;
+	private String mainColor;
 	private ArrayList<Item> itemsIncluded = null;
 	private String isSelfMade;
 	
