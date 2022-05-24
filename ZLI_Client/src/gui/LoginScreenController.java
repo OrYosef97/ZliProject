@@ -45,8 +45,6 @@ public class LoginScreenController implements Initializable {
     
     @FXML
     void exit(ActionEvent event) {
-    	System.out.println();
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName()+" 0")); //loggedin = 0
     	System.exit(0);
     }
 
@@ -80,7 +78,8 @@ public class LoginScreenController implements Initializable {
 			((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
 			Stage primaryStage = new Stage();
 			/*update user info to Logged in*/
-			//ClientUI.chat.accept("updateLoggedIn " + usernameTextField.getText().trim() +" 1");
+			user.setUserName(usernameTextField.getText());
+			ClientUI.chat.accept(new Message (ClientMessageType.UpdateLoggedIn,user.getUserName()+ " 1"));
 			switch(user.getUserType()){
 			case CUSTOMER: 
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen1.fxml"));
@@ -101,7 +100,8 @@ public class LoginScreenController implements Initializable {
 				FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/gui/DeliveryPersonScreen.fxml"));
 				Parent root2 = loader2.load();
 				DeliveryPersonScreenController dc = loader2.getController();
-				dc.setRoleName(usernameTextField.getText().trim());
+				dc.setRoleName(user.getUserName());
+				//dc.setRoleName(usernameTextField.getText().trim());
 				Scene scene2 = new Scene(root2);
 				//Image icon = new Image("/images.img/icon1.jpeg");
 				//primaryStage.getIcons().add(icon);
@@ -110,6 +110,21 @@ public class LoginScreenController implements Initializable {
 				primaryStage.setScene(scene2);
 				primaryStage.show();
 				break;
+			case CUSTOMER_SERVICE_WORKER:
+			    loader2 = new FXMLLoader(getClass().getResource("/gui/CustomerServiceWorkerMainScreen.fxml"));
+				root2 = loader2.load();
+				CustomerServiceWorkerMainScreenController csw = loader2.getController();
+				csw.SetUserName(user.getUserName());
+				//dc.setRoleName(usernameTextField.getText().trim());
+				scene2 = new Scene(root2);
+				//Image icon = new Image("/images.img/icon1.jpeg");
+				//primaryStage.getIcons().add(icon);
+				
+				primaryStage.setTitle("");
+				primaryStage.setScene(scene2);
+				primaryStage.show();
+				break;
+				
 			case CEO:
 				break;
 			case STORE_MANAGER:

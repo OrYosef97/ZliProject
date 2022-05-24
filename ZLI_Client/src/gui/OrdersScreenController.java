@@ -51,7 +51,15 @@ public class OrdersScreenController implements Initializable {
 	@FXML
 	private TableColumn<Order, Integer> PriceColum;
 
+	@FXML
+	private TableColumn<Order, String> CustomerNameColumn;
+
+	@FXML
+	private TableColumn<Order, String> AddressColumn;
+
 	ObservableList<Order> orders;
+	
+	String userName;
 
 	@FXML
 	void BackBtn(ActionEvent event) {
@@ -64,7 +72,7 @@ public class OrdersScreenController implements Initializable {
 			// loader.getController();
 			// clientMainScreenController.setErrorTxtFVisability(false);
 			DeliveryPersonScreenController sc = loader.getController();
-			sc.setRoleName("de"); // needs to be general.
+			//sc.setRoleName("de"); // needs to be general.
 			Stage primaryStage = new Stage();
 			Image icon = new Image("/gui/icon1.jpeg");
 			primaryStage.getIcons().add(icon);
@@ -79,6 +87,7 @@ public class OrdersScreenController implements Initializable {
 
 	@FXML
 	void exit(ActionEvent event) {
+		ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
 		System.exit(0);
 	}
 
@@ -86,6 +95,8 @@ public class OrdersScreenController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		orders = FXCollections.observableArrayList();
 		OrderNumColum.setCellValueFactory(new PropertyValueFactory<Order, Integer>("orderNumber"));
+		AddressColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("address"));
+		CustomerNameColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("custumerName"));
 		PriceColum.setCellValueFactory(new PropertyValueFactory<Order, Integer>("price"));
 		// orderDetailsColum.setCellValueFactory(new PropertyValueFactory<Order,
 		// String>("Details"));
@@ -95,15 +106,17 @@ public class OrdersScreenController implements Initializable {
 
 	}
 
-	
 	public void loadOrders() {
-		ClientUI.chat.accept(new Message(ClientMessageType.GetClientsOrders,""));
-		Message message = (Message)ClientChat.returnedValueFromServer;
-		
+		ClientUI.chat.accept(new Message(ClientMessageType.GetClientsOrders, ""));
+		Message message = (Message) ClientChat.returnedValueFromServer;
+
 		ArrayList<Order> ordersArray = (ArrayList<Order>) message.getObj();
+		for(int i=0;i<ordersArray.size();i++) {
+			if(ordersArray.get(i).getHasDelivery()==0) ordersArray.remove(i);
+		}
 		System.out.println("got it");
 		System.out.println("got " + ordersArray);// just for check
-		if (message.getServerMessageType()==ServerMessageType.FAILED) 
+		if (message.getServerMessageType() == ServerMessageType.FAILED)
 			return;
 		Platform.runLater(new Runnable() {
 			@Override
@@ -124,10 +137,15 @@ public class OrdersScreenController implements Initializable {
 		Optional<ButtonType> r = alert.showAndWait();
 		if (r.isPresent() && r.get() == ButtonType.YES) {
 			Order selectedOrder = OrdersTable.getFocusModel().getFocusedItem();
-			ClientUI.chat.accept(new Message(ClientMessageType.UpdateOrderDelivered,selectedOrder.getOrderNumber()));
-			OrdersTable.getItems().removeAll(OrdersTable.getSelectionModel().getSelectedItems());//or: why you dont send "selectedOrder"
+			ClientUI.chat.accept(new Message(ClientMessageType.UpdateOrderDelivered, selectedOrder.getOrderNumber()));
+			OrdersTable.getItems().removeAll(OrdersTable.getSelectionModel().getSelectedItems());// or: why you dont
+																									// send
+																									// "selectedOrder"
 			OrdersTable.refresh();
 		}
+	}
+	public void SetUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

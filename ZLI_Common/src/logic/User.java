@@ -28,6 +28,9 @@ public class User implements Serializable {
 			break;
 		case "Store Manager":
 			this.userType=UserType.STORE_MANAGER;
+			break;		
+		case "Customer Service Worker":
+			this.userType=UserType.CUSTOMER_SERVICE_WORKER;
 			break;
 		default:
 			System.out.println("user not found");

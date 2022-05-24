@@ -18,6 +18,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import logic.Client;
 import ocsf.server.ConnectionToClient;
 import server.ServerUI;
@@ -121,5 +123,13 @@ public class ServerScreenController implements Initializable {
 		statusColum.setCellValueFactory(new PropertyValueFactory<Client, String>("status"));
 		connectedClientsTable.setItems(clients);// maybe not needed here
 	}
+	@FXML
+    void EnterPressed(KeyEvent event) throws SQLException {
+		if(event.getCode() == KeyCode.ENTER) {
+			ActionEvent event1 = new ActionEvent();
+			connectToServer(event1);
+		}
+	}
+	  
 
 }
