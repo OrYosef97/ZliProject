@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import logic.User;
 
 public class CustomerMainScreenController {
 
@@ -28,14 +29,14 @@ public class CustomerMainScreenController {
     @FXML
     private Button xBtn;
     
-    String userName;
+    User user;
 
-    public String getUserName() {
-		return userName;
+    public User getUser() {
+		return user;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUser(User user) {
+		this.user= user;
 	}
 
 	@FXML
@@ -51,7 +52,7 @@ public class CustomerMainScreenController {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CreateOrderScreen.fxml"));
 		Parent root = loader.load();
 		CreateOrderScreenController coSC = loader.getController();
-		coSC.setUserName(userName);
+		coSC.setUser(user);
 		Scene scene = new Scene(root);
 		
 		primaryStage.setTitle("Creat Order Window");
@@ -62,12 +63,12 @@ public class CustomerMainScreenController {
     @FXML
     void OpenLogInScreen(ActionEvent event) throws IOException {
     	System.out.println("opening loging screen and disconnecting user");
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
+    	ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,user.getUserName()+" 0")); //loggedin = 0
     	
     	((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
 		Stage primaryStage = new Stage();
 		
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CreateOrderScreen.fxml"));
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
 		
@@ -78,8 +79,7 @@ public class CustomerMainScreenController {
 
     @FXML
     void exit(ActionEvent event) {
-    	System.out.println();
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
+    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName()+" 0")); //loggedin = 0
     	System.exit(0);
     }
 

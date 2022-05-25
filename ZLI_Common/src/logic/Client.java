@@ -38,7 +38,7 @@ public class Client  {
 	@Override
 	public boolean equals(Object obj) {
 		Client c = (Client)obj;
-		if(this.ip==c.getIp())
+		if(this.ip.equals(c.getIp()))
 			return true;
 		return false;
 	}

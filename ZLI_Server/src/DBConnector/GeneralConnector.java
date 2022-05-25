@@ -1,6 +1,5 @@
 package DBConnector;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,12 +8,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import common.Converter;
 import gui.ServerScreenController;
 import logic.Item;
 import logic.Order;
 import logic.Product;
 import logic.User;
+import server.ServerUI;
 
 public class GeneralConnector {
 	
@@ -60,13 +59,11 @@ public class GeneralConnector {
 		try {
 			stmt=conn.createStatement();
 			ArrayList<Product> productArray = new ArrayList<Product>();
-			ArrayList<Item> itemsArray= new ArrayList<Item>();
 			ResultSet rs=stmt.executeQuery("SELECT * from products;");
 			while(rs.next())
 	 		{
-				itemsArray=(ArrayList<Item>)Converter.byteArrayToObjectIS(rs.getObject("itemsIncluded")).readObject();
-				productArray.add(new Product(rs.getInt("PID"), rs.getString("name"), rs.getString("type"), rs.getDouble("price"),
-						rs.getString("mainColor"), rs.getString("Image"), itemsArray,rs.getString("isSelfMade")));
+				productArray.add(new Product(rs.getString("PID"), rs.getString("name"), rs.getString("type"), rs.getDouble("price"),
+						rs.getString("mainColor"), rs.getString("Image"),rs.getString("isSelfMade")));
 	 		}
 			System.out.println(productArray);
 			return productArray;
@@ -106,9 +103,9 @@ public class GeneralConnector {
 	 		{
 //				orders.append(rs.getString(1)+ "//z" + rs.getString(2) + "//z" + rs.getString(3) + "//z" + rs.getString(4)+ "//z"+ rs.getString(5)+ "//z"
 //						+rs.getString(6)+ "//z"+rs.getString(7)+ "//z"+rs.getString(8)+ "//z");
-			ordersArray.add(new Order(rs.getString("orderID"),rs.getString("customerName"),rs.getString("greeting"),rs.getInt("isSelfMade")
+			ordersArray.add(new Order(rs.getInt("orderID"),rs.getString("customerName"),rs.getString("greeting"),rs.getInt("isSelfMade")
 					,rs.getString("orderDetails"), rs.getInt("hasDelivery"),rs.getString("address"),fixDate(rs.getString("deliveryDate")),
-					rs.getString("branch"),null,rs.getString("paymentDetails"),rs.getInt("price"),rs.getString("status")));	
+					rs.getString("branch"),rs.getString("paymentDetails"),rs.getDouble("price"),fixDate(rs.getString("orderDate")),rs.getString("status")));	
 								/*rs.getString("products")*/
 	 		}
 
@@ -138,7 +135,7 @@ public class GeneralConnector {
 			stmt.setString(1, userName);
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next())
-				user=new User(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4));
+				user=new User(rs.getString("userName"),rs.getString("password"),rs.getString("userType"),rs.getInt("isLoggedIn"),rs.getInt("userID"));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -168,9 +165,8 @@ public class GeneralConnector {
 	public static void CloseConnection() throws SQLException {//maybe gets con as parameter
 		// con.close();
 		try {
-			if (conn != null && !conn.isClosed()) {
-				conn.close();
-			}
+			ServerUI.closeServer();
+			//mayby needs to close DB conn
 		} catch (Exception e) {
 			throw e;
 		}
@@ -182,13 +178,12 @@ public class GeneralConnector {
 		try {
 			stmt = conn.prepareStatement("INSERT INTO `zliproject`.`products` (`PID`, `name`, `type`, `price`, `mainColor`, `itemsIncluded`, `isSelfMade`)"
 					+ "VALUES ('?', '?', '?', '?', '?', '?', '?');");
-			stmt.setInt(1, product.getId());
+			stmt.setString(1, product.getId());
 			stmt.setString(2, product.getName());
 			stmt.setString(3,product.getType());
 			stmt.setDouble(4, product.getPrice());
 			stmt.setString(5, product.getMainColor());
-			stmt.setString(5, product.getImage());
-			stmt.setBinaryStream(7, Converter.objectToByteArrayIS(product.getItemsIncluded()));
+			stmt.setString(6, product.getImageUrl());
 			stmt.setInt(8, Integer.parseInt(product.getIsSelfMade()));
 			stmt.executeUpdate();
 			

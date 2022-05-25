@@ -4,14 +4,16 @@
 package server;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import DBConnector.*;
+import DBConnector.CustomerServiceWorkerDBConnector;
+import DBConnector.DeliveryDBConnector;
 import DBConnector.GeneralConnector;
+import DBConnector.SmDBConnector;
 import common.Message;
 import enumType.ServerMessageType;
 import logic.CustomerDetails;
+import logic.Item;
 import logic.Order;
 import logic.Product;
 import logic.User;
@@ -85,6 +87,16 @@ public class EchoServer extends AbstractServer {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			break;
+		case GetItems:
+			try {
+				ArrayList<Item> rs = GeneralConnector.getItems();
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
+			break;
 		case GetClientsOrders:
 			try {
 
@@ -109,21 +121,15 @@ public class EchoServer extends AbstractServer {
 
 		case UpdateLoggedIn: // added by gal
 			try {
-
-				int status = Integer.parseInt(splitString[1]); // turn the status into int
-				System.out.println(splitString[0] + " " + status + " test");
-				if (status == 0)
-					ServerUI.aFrame.delClient(client, getNumberOfClients());// update server gui
-				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0], status);
-				client.sendToClient(
-						new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
-																													// from
-																													// sendToAllClient
+				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0],Integer.parseInt(splitString[1]));
+				System.out.println("client " + client + " logout " + (succeeded ? "succeed" : "faild"));
+				client.sendToClient(new Message(ServerMessageType.SUCCEED,succeeded));
 			} catch (IOException e) {
 			}
 			break;	
 		case AddComplaint: // added by gal
 			try {
+				@SuppressWarnings("unchecked")
 				ArrayList<Object> data = (ArrayList<Object>) message.getObj();
 				Integer CustomerID = (Integer) data.get(0);
 				System.out.println(CustomerID);
@@ -155,7 +161,7 @@ public class EchoServer extends AbstractServer {
 				ServerUI.aFrame.delClient(client, getNumberOfClients());
 				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0],(Integer)0);
 				System.out.println("client " + client + " Exit operation " + (succeeded ? "succeed" : "faild"));
-				client.sendToClient(" ");
+				client.sendToClient(new Message(ServerMessageType.SUCCEED,succeeded));
 				client.close();
 			} catch (IOException e) {
 			}
