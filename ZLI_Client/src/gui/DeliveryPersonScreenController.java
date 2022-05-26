@@ -1,6 +1,5 @@
 package gui;
 
-import client.ClientChat;
 import client.ClientUI;
 import common.Message;
 import enumType.ClientMessageType;
@@ -10,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;

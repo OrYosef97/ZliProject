@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Order implements Serializable {
-	private String orderNumber;
+	private Integer orderNumber;
 	private String customerName;
 	private String greeting;
 	private Integer isSelfMade;
@@ -16,16 +16,17 @@ public class Order implements Serializable {
 	private String branch;
 	private ArrayList<Product> products;
 	private String paymentDetails;
-	private Integer price;
+	private Double price;
+	private String orderDate;
 	private String status;
 
 	
 
 
 	
-	public Order(String orderNumber, String customerName, String greeting, Integer isSelfMade, String orderDetails, Integer hasDelivery,
-			String address, String deliveryDate, String branch, ArrayList<Product> products, String paymentDetails,
-			Integer price, String status) {
+	public Order(Integer orderNumber, String customerName, String greeting, Integer isSelfMade, String orderDetails, Integer hasDelivery,
+			String address, String deliveryDate, String branch, String paymentDetails,
+			Double price,String orderDate, String status) {
 		super();
 		this.orderNumber = orderNumber;
 		this.customerName = customerName;
@@ -35,12 +36,37 @@ public class Order implements Serializable {
 		this.address = address;
 		this.deliveryDate = deliveryDate;
 		this.branch = branch;
-		this.products = products;
 		this.paymentDetails = paymentDetails;
 		this.price = price;
+		this.orderDate = orderDate;
 		this.status = status;
 	}
 
+	
+	
+	public String getOrderDate() {
+		return orderDate;
+	}
+
+
+
+	public void setOrderDate(String orderDate) {
+		this.orderDate = orderDate;
+	}
+
+
+
+	public String getOrderDetails() {
+		return orderDetails;
+	}
+
+
+
+
+
+	public void setOrderDetails(String orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 
 
 
@@ -173,7 +199,7 @@ public class Order implements Serializable {
 
 
 
-	public Integer getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
@@ -181,7 +207,7 @@ public class Order implements Serializable {
 
 
 
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -221,7 +247,7 @@ public class Order implements Serializable {
 
 
 
-	public String getOrderNumber() {
+	public Integer getOrderNumber() {
 		return orderNumber;
 	}
 

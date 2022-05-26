@@ -1,5 +1,7 @@
 package server;
 
+import java.io.IOException;
+
 import gui.ServerScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 public class ServerUI extends Application {
 	final public static int DEFAULT_PORT = 5555;
 	public static ServerScreenController aFrame;
+	static EchoServer sv;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -43,8 +46,7 @@ public class ServerUI extends Application {
 			//aFrame.setTextToConsole("ERROR - Could not connect!");//new
 		}
 
-		EchoServer sv = new EchoServer(port);
-
+		 sv = new EchoServer(port);
 		try {
 
 			sv.listen(); // Start listening for connections
@@ -55,6 +57,16 @@ public class ServerUI extends Application {
 		
 			//aFrame.setTextToConsole("ERROR - Could not listen for clients! ");//new
 		}
+	}
+	
+	public static void closeServer() {
+		try {
+			sv.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Cant close the server connection");
+		}
+		
 	}
 
 }

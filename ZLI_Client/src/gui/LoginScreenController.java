@@ -63,7 +63,7 @@ public class LoginScreenController implements Initializable {
 			}
 			
 
-			User user = (User)message.getObj();
+			user = (User)message.getObj();
 			System.out.println("just for check "+user);
 			if(!(passwordTextField.getText().trim().equals(user.getPassword()))) {//if password incorrect
 				wrongLoginLabel.setText("Wrong username or password");
@@ -86,7 +86,7 @@ public class LoginScreenController implements Initializable {
 				
 				Parent root = loader.load();
 				CustomerMainScreenController cmmSC = loader.getController();
-				cmmSC.setUserName(user.getUserName());
+				cmmSC.setUser(user);
 				Scene scene = new Scene(root);
 				//Image icon = new Image("/images.img/icon1.jpeg");
 				//primaryStage.getIcons().add(icon);
