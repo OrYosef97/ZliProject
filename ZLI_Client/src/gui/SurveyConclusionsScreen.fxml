@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="483.0" prefWidth="676.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SurveryConclusionsScreenController">
+   <center>
+      <HBox alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="363.0" prefWidth="682.0" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER" />
+                  <Pane prefHeight="74.0" prefWidth="656.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Label layoutX="14.0" layoutY="5.0" text="Please choose a survey, and upload its conclusions:">
+                           <font>
+                              <Font name="Calibri" size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="SurveyTable" layoutX="14.0" layoutY="35.0" prefHeight="200.0" prefWidth="319.0">
+                          <columns>
+                            <TableColumn fx:id="SurveryIDColumn" prefWidth="75.0" text="SurveyID" />
+                            <TableColumn fx:id="SurveyTypeColumn" prefWidth="75.0" text="Survey Type" />
+                              <TableColumn fx:id="SurveyUploaderColumn" prefWidth="75.0" text="Survey Uploader" />
+                          </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children></Pane>
+                  <Pane maxHeight="150.0" prefHeight="24.0" prefWidth="656.0" VBox.vgrow="ALWAYS" />
+                  <HBox alignment="BOTTOM_LEFT" prefHeight="169.0" prefWidth="611.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#Back" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Back" textFill="WHITE">
+                           <font>
+                              <Font name="Cambria Bold" size="16.0" />
+                           </font>
+                        </Button>
+                     </children>
+                     <opaqueInsets>
+                        <Insets left="20.0" />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets bottom="40.0" left="50.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="TOP_CENTER" prefHeight="27.0" prefWidth="686.0">
+               <children>
+                  <Pane prefHeight="56.0" prefWidth="130.0" />
+                  <Pane prefHeight="56.0" prefWidth="58.0" HBox.hgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#exit" prefHeight="18.0" prefWidth="31.0" style="-fx-background-color: #699481;" text="X" textFill="WHITE" HBox.hgrow="ALWAYS" fx:id="xBtn">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+            <Label alignment="CENTER" contentDisplay="BOTTOM" prefHeight="50.0" prefWidth="696.0" text="Survey Conclusions" textFill="#446154">
+               <font>
+                  <Font name="Cambria Bold" size="40.0" />
+               </font>
+               <graphic>
+                  <Line endX="125.80067443847656" endY="-2.2781646251678467" startX="-259.6540832519531" startY="-2.2781500816345215" />
+               </graphic>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <right>
+      <Pane prefHeight="456.0" prefWidth="292.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="fileNameTextField" disable="true" editable="false" layoutX="14.0" layoutY="65.0" prefHeight="25.0" prefWidth="170.0" promptText="Choose file" />
+            <Button layoutX="197.0" layoutY="62.0" mnemonicParsing="false" onAction="#Browse" prefHeight="30.0" prefWidth="82.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Browse" textFill="WHITE">
+               <font>
+                  <Font name="Cambria Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="184.0" layoutY="314.0" mnemonicParsing="false" onAction="#UploadConclusions" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Upload" textFill="WHITE">
+               <font>
+                  <Font name="Cambria Bold" size="16.0" />
+               </font>
+            </Button>
+            <Label layoutX="27.0" layoutY="26.0" text="Choose conclusion file:">
+               <font>
+                  <Font name="Calibri" size="16.0" />
+               </font></Label>
+            <Line endX="-61.999969482421875" endY="-140.60000610351562" layoutX="54.0" layoutY="162.0" startX="-61.999969482421875" startY="167.39999389648438" />
+         </children>
+      </Pane>
+   </right>
+</BorderPane>

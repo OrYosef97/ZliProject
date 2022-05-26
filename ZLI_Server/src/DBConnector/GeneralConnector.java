@@ -173,6 +173,7 @@ public class GeneralConnector {
 
 	}
 	
+	@SuppressWarnings("unused")
 	private static boolean StoreProduct(Product product) throws Exception {
 		PreparedStatement stmt;//
 		try {

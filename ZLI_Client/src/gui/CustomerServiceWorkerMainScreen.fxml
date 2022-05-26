@@ -31,7 +31,12 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="createOrderBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="281.0" layoutY="170.0" mnemonicParsing="false" onAction="#AddComplaint" prefHeight="38.0" prefWidth="133.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Add Complaint" textFill="WHITE">
+      <Button fx:id="createOrderBtn" alignment="CENTER" contentDisplay="CENTER" layoutX="276.0" layoutY="168.0" mnemonicParsing="false" onAction="#AddComplaint" prefHeight="38.0" prefWidth="133.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Add Complaint" textFill="WHITE">
+         <font>
+            <Font name="Cambria Bold" size="16.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="233.0" layoutY="231.0" mnemonicParsing="false" onAction="#SaveSurveyConclutions" prefHeight="38.0" prefWidth="213.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Save Survey Conclusions" textFill="WHITE">
          <font>
             <Font name="Cambria Bold" size="16.0" />
          </font>

@@ -3,6 +3,7 @@
 // license found at www.lloseng.com 
 package server;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ import logic.CustomerDetails;
 import logic.Item;
 import logic.Order;
 import logic.Product;
+import logic.Survey;
 import logic.User;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -119,9 +121,10 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
-		case GetCustomerOrders:
+
+		case GetSurveys: //added by Gal
 			try {
-				ArrayList<Order> rs = CustomerDBConnector.getCustomerOrders((User)message.getObj());
+				ArrayList<Survey> rs = CustomerServiceWorkerDBConnector.LoadSurveys();
 				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
 				client.sendToClient(message);
 			} catch (IOException e) {
@@ -165,6 +168,22 @@ public class EchoServer extends AbstractServer {
 			} catch (IOException e) {
 			}
 			break;
+			
+		case AddConclusion: // added by gal
+			try {
+				//System.out.println(splitString[0] + " test");
+				@SuppressWarnings("unchecked")
+				ArrayList<Object> temp = (ArrayList<Object>) message.getObj();
+				Survey survey = (Survey) temp.get(0);
+				File conclusionFile = (File) temp.get(1);
+				boolean succeeded = CustomerServiceWorkerDBConnector.AddConclusions(survey,conclusionFile);
+				client.sendToClient(
+						new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
+																													// from
+																													// sendToAllClient
+			} catch (Exception e) {
+			}
+			break;
 		case UpdateOrderDelivered: // added by gal
 			try {
 
@@ -180,8 +199,9 @@ public class EchoServer extends AbstractServer {
 		case EXIT:
 			try {
 				ServerUI.aFrame.delClient(client, getNumberOfClients());
-				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0],(Integer)0);
+				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0],0);
 				System.out.println("client " + client + " Exit operation " + (succeeded ? "succeed" : "faild"));
+
 				client.sendToClient(new Message(ServerMessageType.SUCCEED,succeeded));
 				client.close();
 			} catch (IOException e) {

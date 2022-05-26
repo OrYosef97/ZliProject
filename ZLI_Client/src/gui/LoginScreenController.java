@@ -114,7 +114,7 @@ public class LoginScreenController implements Initializable {
 			    loader2 = new FXMLLoader(getClass().getResource("/gui/CustomerServiceWorkerMainScreen.fxml"));
 				root2 = loader2.load();
 				CustomerServiceWorkerMainScreenController csw = loader2.getController();
-				csw.SetUserName(user.getUserName());
+				csw.SetUser(user);
 				//dc.setRoleName(usernameTextField.getText().trim());
 				scene2 = new Scene(root2);
 				//Image icon = new Image("/images.img/icon1.jpeg");

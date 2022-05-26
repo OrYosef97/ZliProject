@@ -1,5 +1,6 @@
 package gui;
 
+import client.ClientChat;
 import client.ClientUI;
 import common.Message;
 import enumType.ClientMessageType;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logic.User;
 
 public class CustomerServiceWorkerMainScreenController {
 
@@ -24,7 +26,7 @@ public class CustomerServiceWorkerMainScreenController {
     @FXML
     private Button createOrderBtn;
     
-    String userName;
+    User user;
 
     @FXML
     void AddComplaint(ActionEvent event) {
@@ -42,7 +44,7 @@ public class CustomerServiceWorkerMainScreenController {
 			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
 			primaryStage.setScene(scene);
 			AddComplaintsScreenController ac = new AddComplaintsScreenController ();
-			ac.SetUserName(userName);
+			ac.SetUser(user);
 			primaryStage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -53,8 +55,8 @@ public class CustomerServiceWorkerMainScreenController {
     @FXML
     void LogOut(ActionEvent event) {
     	try {
-            System.out.println(userName + " HI");
-    		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,userName+" 0"));
+    		//System.out.println(userName);
+    		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,user.getUserName()));
 			((Node) event.getSource()).getScene().getWindow().hide();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
 			Pane root = loader.load();
@@ -76,12 +78,35 @@ public class CustomerServiceWorkerMainScreenController {
 
     @FXML
     void exit(ActionEvent event) {
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
+    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName())); //loggedin = 0
+    	String s = (String)ClientChat.returnedValueFromServer;
     	System.exit(0);
     }
     
-    public void SetUserName(String roleName) {
-		userName = roleName;
-	}
+    @FXML
+    void SaveSurveyConclutions(ActionEvent event) {
+    	try {
+			((Node) event.getSource()).getScene().getWindow().hide();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/SurveyConclusionsScreen.fxml"));
+			Pane root = loader.load();
+			// ClientMainScreenController clientMainScreenController =
+			// loader.getController();
+			// clientMainScreenController.setErrorTxtFVisability(false);
+			Stage primaryStage = new Stage();
+			Image icon = new Image("/gui/icon1.jpeg");
+			primaryStage.getIcons().add(icon);
+			Scene scene = new Scene(root);
+			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
+			primaryStage.setScene(scene);
+			AddComplaintsScreenController ac = new AddComplaintsScreenController ();
+			ac.SetUser(user);
+			primaryStage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 
+    public void SetUser(User user) {
+		this.user = user;
+	}
 }
