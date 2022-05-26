@@ -96,7 +96,7 @@ public class OrdersScreenController implements Initializable {
 		orders = FXCollections.observableArrayList();
 		OrderNumColum.setCellValueFactory(new PropertyValueFactory<Order, Integer>("orderNumber"));
 		AddressColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("address"));
-		CustomerNameColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("custumerName"));
+		CustomerNameColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("customerName"));
 		PriceColum.setCellValueFactory(new PropertyValueFactory<Order, Integer>("price"));
 		// orderDetailsColum.setCellValueFactory(new PropertyValueFactory<Order,
 		// String>("Details"));
