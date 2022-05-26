@@ -22,6 +22,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logic.User;
 
 public class AddComplaintsScreenController {
 
@@ -46,7 +47,7 @@ public class AddComplaintsScreenController {
     @FXML
     private Button confirmBtn;
 
-    String userName;
+    User user;
     @FXML
     void Confirm(ActionEvent event) {
     	Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
@@ -73,7 +74,7 @@ public class AddComplaintsScreenController {
 			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
 		    CustomerServiceWorkerMainScreenController csw = new CustomerServiceWorkerMainScreenController();
-		    csw.SetUserName(userName);
+		    csw.SetUser(user);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
@@ -84,7 +85,7 @@ public class AddComplaintsScreenController {
 
     @FXML
     void exit(ActionEvent event) {
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
+    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName())); //loggedin = 0
     	System.exit(0);
     }
     
@@ -99,8 +100,8 @@ public class AddComplaintsScreenController {
     	ClientUI.chat.accept(new Message(ClientMessageType.AddComplaint,data));
     	
     }
-    void SetUserName (String userName) {
-    	this.userName = userName;
-    }
+    void SetUser(User user) {
+		this.user = user;
+	}
 
 }

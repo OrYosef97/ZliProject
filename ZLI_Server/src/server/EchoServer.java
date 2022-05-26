@@ -3,17 +3,20 @@
 // license found at www.lloseng.com 
 package server;
 
+import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-import DBConnector.*;
+import DBConnector.CustomerServiceWorkerDBConnector;
+import DBConnector.DeliveryDBConnector;
 import DBConnector.GeneralConnector;
+import DBConnector.SmDBConnector;
 import common.Message;
 import enumType.ServerMessageType;
 import logic.CustomerDetails;
 import logic.Order;
 import logic.Product;
+import logic.Survey;
 import logic.User;
 import ocsf.server.AbstractServer;
 import ocsf.server.ConnectionToClient;
@@ -95,6 +98,16 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
+			
+		case GetSurveys: //added by Gal
+			try {
+				ArrayList<Survey> rs = CustomerServiceWorkerDBConnector.LoadSurveys();
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
 
 		case GetCustomerDetails: // added by yaniv
 			try {
@@ -138,6 +151,21 @@ public class EchoServer extends AbstractServer {
 			} catch (IOException e) {
 			}
 			break;
+			
+		case AddConclusion: // added by gal
+			try {
+				//System.out.println(splitString[0] + " test");
+				ArrayList<Object> temp = (ArrayList<Object>) message.getObj();
+				Survey survey = (Survey) temp.get(0);
+				File conclusionFile = (File) temp.get(1);
+				boolean succeeded = CustomerServiceWorkerDBConnector.AddConclusions(survey,conclusionFile);
+				client.sendToClient(
+						new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
+																													// from
+																													// sendToAllClient
+			} catch (Exception e) {
+			}
+			break;
 		case UpdateOrderDelivered: // added by gal
 			try {
 
@@ -153,10 +181,11 @@ public class EchoServer extends AbstractServer {
 		case EXIT:
 			try {
 				ServerUI.aFrame.delClient(client, getNumberOfClients());
-				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0],(Integer)0);
+				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0],0);
 				System.out.println("client " + client + " Exit operation " + (succeeded ? "succeed" : "faild"));
-				client.sendToClient(" ");
-				client.close();
+				client.sendToClient("");
+				//client.close();
+				//System.exit(0);
 			} catch (IOException e) {
 			}
 			break;

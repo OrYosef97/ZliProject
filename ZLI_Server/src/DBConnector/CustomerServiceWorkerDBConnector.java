@@ -1,8 +1,15 @@
 package DBConnector;
 
+import java.io.BufferedInputStream;
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import common.Converter;
+import logic.Survey;
 
 /*
  * @author Gal
@@ -39,5 +46,45 @@ public class CustomerServiceWorkerDBConnector {
 		}
 		return true;
 	}
+
+	public static ArrayList<Survey> LoadSurveys() {
+		Statement stmt;
+		try {
+			stmt=GeneralConnector.conn.createStatement();
+			ArrayList<Survey> surveyArray = new ArrayList<Survey>();
+			ResultSet rs=stmt.executeQuery("SELECT * from survey;");
+			while(rs.next())
+	 		{
+//				orders.append(rs.getString(1)+ "//z" + rs.getString(2) + "//z" + rs.getString(3) + "//z" + rs.getString(4)+ "//z"+ rs.getString(5)+ "//z"
+//						+rs.getString(6)+ "//z"+rs.getString(7)+ "//z"+rs.getString(8)+ "//z");
+			surveyArray.add(new Survey(rs.getInt("surveyID"),rs.getString("surveyType"),rs.getString("surveyUpdater")));	
+								/*rs.getString("products")*/
+	 		}
+
+			System.out.println(surveyArray);
+			return surveyArray;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;			
+		}
+	}
+	public static Boolean AddConclusions(Survey survey,File conclusionFile) throws Exception { //needs to be finished after getting blob
+		PreparedStatement stmt;//
+		System.out.println(conclusionFile.getName());
+		Integer surveyID = survey.getSurveyID();
+		BufferedInputStream file = Converter.objectToByteArrayIS(conclusionFile);
+		try {
+			stmt = GeneralConnector.conn.prepareStatement("UPDATE survey_results SET conclusions = ? WHERE surveyID = ? ;");
+			stmt.setInt(2, surveyID);	
+			stmt.setBlob(1, file);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	
 }
 
