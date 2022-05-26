@@ -33,14 +33,11 @@ public class ItemPaneController {
 	public void setItem(GeneralItem item,CreateOrderScreenController cosC ) {
 		this.item = item;
 		this.cosC=cosC;
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
+	
 				ItemImageView.setImage(new Image(item.getImageUrl()));
 				nameLable.setText(item.getName());
 				priceLable.setText(Double.toString(item.getPrice()));	
-			}
-		});
+	
 	}
 
 	@FXML

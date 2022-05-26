@@ -6,12 +6,14 @@ package server;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import DBConnector.CustomerDBConnector;
 import DBConnector.CustomerServiceWorkerDBConnector;
 import DBConnector.DeliveryDBConnector;
 import DBConnector.GeneralConnector;
 import DBConnector.SmDBConnector;
 import common.Message;
 import enumType.ServerMessageType;
+import logic.Customer;
 import logic.CustomerDetails;
 import logic.Item;
 import logic.Order;
@@ -97,10 +99,29 @@ public class EchoServer extends AbstractServer {
 				// TODO: handle exception
 			}
 			break;
+		case GetCustomer:
+			try {
+				Customer rs = CustomerDBConnector.getCustomer((User)message.getObj());
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+
 		case GetClientsOrders:
 			try {
 
 				ArrayList<Order> rs = GeneralConnector.getOrders();
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		case GetCustomerOrders:
+			try {
+				ArrayList<Order> rs = CustomerDBConnector.getCustomerOrders((User)message.getObj());
 				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
 				client.sendToClient(message);
 			} catch (IOException e) {

@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import client.ClientChat;
 import client.ClientUI;
 import common.Message;
+import enumType.AccountStatus;
 import enumType.ClientMessageType;
+import enumType.ServerMessageType;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -25,6 +30,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import logic.Customer;
 import logic.GeneralItem;
 import logic.Item;
 import logic.Product;
@@ -71,6 +77,8 @@ public class CreateOrderScreenController implements Initializable {
 	@FXML
 	private Button backBtn;
 
+	public static CreateOrderScreenController createOrderSC;
+
 	private ItemPaneController presentedItemController;//
 
 	ArrayList<Item> itemsArray = new ArrayList<Item>();
@@ -93,6 +101,8 @@ public class CreateOrderScreenController implements Initializable {
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen1.fxml"));
 		Parent root = loader.load();
+		CustomerMainScreenController cmSC = loader.getController();
+		cmSC.setUser(user);
 		Scene scene = new Scene(root);
 
 		primaryStage.setTitle("Customer Main Window");
@@ -150,14 +160,41 @@ public class CreateOrderScreenController implements Initializable {
 
 	@FXML
 	void exit(ActionEvent event) {
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName()+" 0")); //loggedin = 0
-    	System.exit(0);
+		ClientUI.chat.accept(new Message(ClientMessageType.EXIT, user.getUserName() + " 0")); // loggedin = 0
+		System.exit(0);
 	}
 
 	@FXML
-	void openCartScreen(ActionEvent event) {
+	void openCartScreen(ActionEvent event) throws IOException {
 		ClientUI.chat.accept(new Message(ClientMessageType.GetCustomer, user.getUserName()));
-
+		Message message = (Message) ClientChat.returnedValueFromServer;
+		Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("You Don't Have Permeation");// Permeation
+		if (message.getServerMessageType() == ServerMessageType.FAILED) {
+			alert.setContentText("Contact your branch manager to arrange you'r user card, Thanks!");
+			alert.showAndWait();
+		} else {
+			Customer customer = (Customer) message.getObj();
+			if (customer.getAccountStatus() == AccountStatus.UNCONFIRMED) {
+				alert.setContentText("Contact your branch manager to arrange payment, Thanks!");
+				alert.showAndWait();
+			}
+			if (customer.getAccountStatus() == AccountStatus.CONFIRMED) {
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/OrderCompletionScreen.fxml"));
+				Parent root = loader.load();
+				OrderCompletionScreenController ocsc = loader.getController();
+				//need to pass the order to the next controller
+				Scene scene = new Scene(root);
+				Stage primaryStage = new Stage();
+				primaryStage.setTitle("Order completion Screen");
+				primaryStage.setScene(scene);
+				primaryStage.show();
+		}
+			else {
+				alert.setContentText("Your acount is Frozen! Please contact your branch manager for more info!");
+				alert.showAndWait();
+			}
+	}
 	}
 
 	@FXML
@@ -186,29 +223,34 @@ public class CreateOrderScreenController implements Initializable {
 		});
 	}
 
+	//@SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Double price = 15.0;
-		Item item = new Item("052", "Rose", "Flower", price, "/images.img/bb.jpeg");
-		int row = 1;
-		int col = 0;
-		try {
-			for (int i = 0; i < 15; i++) {
-				itemsArray.add(item);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ItemPane.fxml"));
-				AnchorPane anc = loader.load();
-				ItemPaneController ipc = loader.getController();
-				ipc.setItem(item,this);
-				if (col == 3) {
-					row++;
-					col = 0;
-				}
-				grid.add(anc, col, row);
-				col++;
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		ClientUI.chat.accept(new Message (ClientMessageType.GetItems, "items"));
+		Message message = (Message) ClientChat.returnedValueFromServer;
+		itemsArray = (ArrayList<Item>) message.getObj();
+//		Double price = 15.0;
+//		Item item = new Item("052", "Rose", "Flower", price, "/images.img/bb.jpeg");
+//		int row = 1;
+//		int col = 0;
+//		try {
+//			for (int i = 0; i < 15; i++) {
+//				itemsArray.add(item);
+//				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ItemPane.fxml"));
+//				AnchorPane anc = loader.load();
+//				ItemPaneController ipc = loader.getController();
+//				ipc.setItem(item, this);
+//				if (col == 3) {
+//					row++;
+//					col = 0;
+//				}
+//				grid.add(anc, col, row);
+//				col++;
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
 	}
 
@@ -219,7 +261,7 @@ public class CreateOrderScreenController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ItemPane.fxml"));
 			AnchorPane anc = loader.load();
 			ItemPaneController ipc = loader.getController();
-			ipc.setItem(item,this);
+			ipc.setItem(item, this);
 			if (col == 3) {
 				row++;
 				col = 0;
