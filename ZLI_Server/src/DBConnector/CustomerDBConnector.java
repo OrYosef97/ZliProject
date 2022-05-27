@@ -37,7 +37,7 @@ public class CustomerDBConnector {
 							+ " `orderDetails`, `hasDelivery`, `address`, `deliveryDate`, `branch`, `paymentDetails`, `price`, `orderDate`, `status`) "
 							+ "VALUES ('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');");
 			//stmt.setInt(1, order.getOrderNumber());
-			stmt.setString(1,order.getCustomerName());
+			stmt.setInt(1,order.getUserID());
 			stmt.setString(2, order.getGreeting());
 			stmt.setInt(3,order.getIsSelfMade());
 			stmt.setString(4, order.getOrderDetails());
@@ -65,7 +65,7 @@ public class CustomerDBConnector {
 			stmt.setInt(1, user.getUserId());
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
-				ordersArray.add(new Order(rs.getInt("orderID"), rs.getString("customerName"), rs.getString("greeting"),
+				ordersArray.add(new Order(rs.getInt("orderID"), rs.getInt("userID"), rs.getString("greeting"),
 						rs.getInt("isSelfMade"),rs.getString("orderDetails") , rs.getInt("hasDelivery"),
 						rs.getString("address"), rs.getString("deliveryDate"), rs.getString("branch"), rs.getString("paymentDetails"),
 						rs.getDouble("price"), rs.getString("orderDate"), rs.getString("status")));

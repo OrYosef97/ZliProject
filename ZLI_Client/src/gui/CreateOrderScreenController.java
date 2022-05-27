@@ -144,8 +144,10 @@ public class CreateOrderScreenController implements Initializable {
 			if (i == -1)
 				return;// not exist in array
 			int amount = productArray.get(i).getAmount();
-			if (amount > 0)
+			if (amount > 0) {				
 				productArray.get(i).setAmount(--amount);
+				presentedItemController.setAmount(amount);//need to send Integer
+			}
 		} else {
 			Item item = (Item) itemOrProduct;
 			i = itemsArray.indexOf(item);
@@ -183,28 +185,43 @@ public class CreateOrderScreenController implements Initializable {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/OrderCompletionScreen.fxml"));
 				Parent root = loader.load();
 				OrderCompletionScreenController ocsc = loader.getController();
-				//need to pass the order to the next controller
+				// need to pass the order to the next controller
 				Scene scene = new Scene(root);
 				Stage primaryStage = new Stage();
 				primaryStage.setTitle("Order completion Screen");
 				primaryStage.setScene(scene);
 				primaryStage.show();
-		}
-			else {
+			} else {
 				alert.setContentText("Your acount is Frozen! Please contact your branch manager for more info!");
 				alert.showAndWait();
 			}
-	}
+		}
 	}
 
 	@FXML
 	void openItemCatalog(ActionEvent event) {// Default to fill later
-
+		ClientUI.chat.accept(new Message(ClientMessageType.GetItems, "items"));
+		Message message = (Message) ClientChat.returnedValueFromServer;
+		itemsArray = (ArrayList<Item>) message.getObj();
+		try {
+			setGrid(itemsArray);
+		} catch (IOException e) {
+			System.out.println("Can't load items");
+			e.printStackTrace();
+		}
 	}
 
 	@FXML
 	void openProductCatalog(ActionEvent event) {// load a new gridpane
-
+		ClientUI.chat.accept(new Message(ClientMessageType.GetProducts, "products"));
+		Message message = (Message) ClientChat.returnedValueFromServer;
+		productArray = (ArrayList<Product>) message.getObj();
+		try {
+			setGrid(productArray);
+		} catch (IOException e) {
+			System.out.println("Can't load Products");
+			e.printStackTrace();
+		}
 	}
 
 	public void setSidePane(ItemPaneController ipc) {
@@ -223,38 +240,23 @@ public class CreateOrderScreenController implements Initializable {
 		});
 	}
 
-	//@SuppressWarnings("unchecked")
+	// @SuppressWarnings("unchecked")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		ClientUI.chat.accept(new Message (ClientMessageType.GetItems, "items"));
+		ClientUI.chat.accept(new Message(ClientMessageType.GetItems, "items"));
 		Message message = (Message) ClientChat.returnedValueFromServer;
 		itemsArray = (ArrayList<Item>) message.getObj();
-//		Double price = 15.0;
-//		Item item = new Item("052", "Rose", "Flower", price, "/images.img/bb.jpeg");
-//		int row = 1;
-//		int col = 0;
-//		try {
-//			for (int i = 0; i < 15; i++) {
-//				itemsArray.add(item);
-//				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/ItemPane.fxml"));
-//				AnchorPane anc = loader.load();
-//				ItemPaneController ipc = loader.getController();
-//				ipc.setItem(item, this);
-//				if (col == 3) {
-//					row++;
-//					col = 0;
-//				}
-//				grid.add(anc, col, row);
-//				col++;
-//			}
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
+		try {
+			setGrid(itemsArray);
+		} catch (IOException e) {
+			System.out.println("Can't load items");
+			e.printStackTrace();
+		}
+		
 	}
 
-	public void setGrid(ArrayList<GeneralItem> items) throws IOException {
+
+	public void setGrid(ArrayList<?extends GeneralItem> items) throws IOException {
 		grid.getChildren().clear();
 		int row = 1, col = 0;
 		for (GeneralItem item : items) {

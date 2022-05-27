@@ -110,6 +110,15 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
+		case GetCustomerOrders:
+			try {
+				ArrayList<Order> rs = CustomerDBConnector.getCustomerOrders((User)message.getObj());
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, (Object)rs);
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
 
 		case GetClientsOrders:
 			try {

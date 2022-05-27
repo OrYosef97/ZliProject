@@ -63,7 +63,7 @@ public class GeneralConnector {
 			while(rs.next())
 	 		{
 				productArray.add(new Product(rs.getString("PID"), rs.getString("name"), rs.getString("type"), rs.getDouble("price"),
-						rs.getString("mainColor"), rs.getString("Image"),rs.getString("isSelfMade")));
+						 rs.getString("Image"),rs.getString("mainColor"),rs.getString("isSelfMade")));
 	 		}
 			System.out.println(productArray);
 			return productArray;
@@ -103,7 +103,7 @@ public class GeneralConnector {
 	 		{
 //				orders.append(rs.getString(1)+ "//z" + rs.getString(2) + "//z" + rs.getString(3) + "//z" + rs.getString(4)+ "//z"+ rs.getString(5)+ "//z"
 //						+rs.getString(6)+ "//z"+rs.getString(7)+ "//z"+rs.getString(8)+ "//z");
-			ordersArray.add(new Order(rs.getInt("orderID"),rs.getString("customerName"),rs.getString("greeting"),rs.getInt("isSelfMade")
+			ordersArray.add(new Order(rs.getInt("orderID"),rs.getInt("userID"),rs.getString("greeting"),rs.getInt("isSelfMade")
 					,rs.getString("orderDetails"), rs.getInt("hasDelivery"),rs.getString("address"),fixDate(rs.getString("deliveryDate")),
 					rs.getString("branch"),rs.getString("paymentDetails"),rs.getDouble("price"),fixDate(rs.getString("orderDate")),rs.getString("status")));	
 								/*rs.getString("products")*/

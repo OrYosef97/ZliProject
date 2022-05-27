@@ -16,6 +16,9 @@ public class ItemPaneController {
 
 	@FXML
 	private AnchorPane ItemPane;
+	
+    @FXML
+    private Label amountLable;
 
 	@FXML
 	private Label nameLable;
@@ -33,16 +36,32 @@ public class ItemPaneController {
 	public void setItem(GeneralItem item,CreateOrderScreenController cosC ) {
 		this.item = item;
 		this.cosC=cosC;
-	
-				ItemImageView.setImage(new Image(item.getImageUrl()));
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println(item.getImageUrl());
+				ItemImageView.setImage(new Image(getClass().getResourceAsStream(item.getImageUrl())));
 				nameLable.setText(item.getName());
-				priceLable.setText(Double.toString(item.getPrice()));	
-	
+				priceLable.setText(Double.toString(item.getPrice()));			
+			}
+		});
 	}
 
 	@FXML
 	void showInPreviewScreen(MouseEvent event) {
 		cosC.setSidePane(this);
+	}
+
+	public void setAmount(int amount) {
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				amountLable.setText(Integer.toString(amount));
+				
+			}
+		});
+		
 	}
 
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class Order implements Serializable {
 	private Integer orderNumber;
-	private String customerName;
+	private Integer userID;
 	private String greeting;
 	private Integer isSelfMade;
 	private String orderDetails;
@@ -24,12 +24,12 @@ public class Order implements Serializable {
 
 
 	
-	public Order(Integer orderNumber, String customerName, String greeting, Integer isSelfMade, String orderDetails, Integer hasDelivery,
+	public Order(Integer orderNumber, Integer userID, String greeting, Integer isSelfMade, String orderDetails, Integer hasDelivery,
 			String address, String deliveryDate, String branch, String paymentDetails,
 			Double price,String orderDate, String status) {
 		super();
 		this.orderNumber = orderNumber;
-		this.customerName = customerName;
+		this.userID = userID;
 		this.greeting = greeting;
 		this.isSelfMade = isSelfMade;
 		this.hasDelivery = hasDelivery;
@@ -255,9 +255,9 @@ public class Order implements Serializable {
 
 
 
-	public String getCustomerName() {
+	public Integer getUserID() {
 
-		return customerName;
+		return userID;
 
 	}
 

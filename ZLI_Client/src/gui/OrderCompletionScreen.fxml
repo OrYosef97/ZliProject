@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OrderCompletionScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="781.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OrderCompletionScreenController">
    <top>
       <HBox prefHeight="69.0" prefWidth="600.0" style="-fx-background-color: #c5ffae;" BorderPane.alignment="CENTER">
          <children>
@@ -98,24 +97,32 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox fx:id="greetingHbox" alignment="CENTER" prefHeight="98.0" prefWidth="436.0">
+            <HBox fx:id="greetingHbox" alignment="CENTER" prefHeight="179.0" prefWidth="618.0">
                <children>
-                  <TextArea prefHeight="98.0" prefWidth="382.0" promptText=" Enter you'r greeting here" />
+                  <TextArea prefHeight="113.0" prefWidth="382.0" promptText=" Enter you'r greeting here" />
                </children>
-            </HBox>
-            <HBox alignment="TOP_RIGHT" prefHeight="62.0" prefWidth="436.0">
-               <children>
-                  <Button fx:id="addDeliveryBtn1" mnemonicParsing="false" onAction="#addDelivery" prefHeight="70.0" prefWidth="107.0" style="-fx-background-color: #289e7c; -fx-background-radius: 20;" text="Add Delivery">
-                     <font>
-                        <Font name="Cambria Bold" size="14.0" />
-                     </font>
-                  </Button>
-               </children>
-               <opaqueInsets>
-                  <Insets right="20.0" />
-               </opaqueInsets>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
             </HBox>
          </children>
       </VBox>
    </center>
+   <bottom>
+      <HBox alignment="TOP_RIGHT" prefHeight="96.0" prefWidth="782.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="addDeliveryBtn1" mnemonicParsing="false" onAction="#addDelivery" prefHeight="41.0" prefWidth="85.0" style="-fx-background-color: #289e7c; -fx-background-radius: 20;" text="Add Delivery">
+               <font>
+                  <Font name="Cambria Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets right="50.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets right="50.0" />
+         </padding>
+      </HBox>
+   </bottom>
 </BorderPane>
