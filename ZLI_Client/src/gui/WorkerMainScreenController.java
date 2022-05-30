@@ -14,55 +14,47 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import logic.User;
 
-
-public class CustomerServiceWorkerMainScreenController {
+public class WorkerMainScreenController {
 
     @FXML
     private Button logOutBtn;
 
     @FXML
     private Button xBtn;
-
-    @FXML
-    private Button createOrderBtn;
     
     User user;
 
     @FXML
-    void AddComplaint(ActionEvent event) {
+    void EnterSurveyComments(ActionEvent event) {
     	try {
+    	//	ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,user.getUserName()));
 			((Node) event.getSource()).getScene().getWindow().hide();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/AddComplaintsScreen.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/EnterSurveyCommentsScreen.fxml"));
 			Pane root = loader.load();
-			// ClientMainScreenController clientMainScreenController =
-			// loader.getController();
-			// clientMainScreenController.setErrorTxtFVisability(false);
 			Stage primaryStage = new Stage();
 			Image icon = new Image("/gui/icon1.jpeg");
 			primaryStage.getIcons().add(icon);
 			Scene scene = new Scene(root);
-			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
+			EnterSurveyCommentsScreenController esc = loader.getController();
+			esc.SetUser(user);
+			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
-			AddComplaintsScreenController ac = loader.getController();
-			ac.SetUser(user);
 			primaryStage.show();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }
+
     
 
     @FXML
     void LogOut(ActionEvent event) {
     	try {
-    		//System.out.println(userName);
     		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,user.getUserName()));
 			((Node) event.getSource()).getScene().getWindow().hide();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
 			Pane root = loader.load();
-			// ClientMainScreenController clientMainScreenController =
-			// loader.getController();
-			// clientMainScreenController.setErrorTxtFVisability(false);
 			Stage primaryStage = new Stage();
 			Image icon = new Image("/gui/icon1.jpeg");
 			primaryStage.getIcons().add(icon);
@@ -77,35 +69,18 @@ public class CustomerServiceWorkerMainScreenController {
     }
 
     @FXML
+    void UpdateCatalog(ActionEvent event) {
+
+    }
+
+    @FXML
     void exit(ActionEvent event) {
     	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName())); //loggedin = 0
     	System.exit(0);
     }
     
-    @FXML
-    void SaveSurveyConclutions(ActionEvent event) {
-    	try {
-			((Node) event.getSource()).getScene().getWindow().hide();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/SurveyConclusionsScreen.fxml"));
-			Pane root = loader.load();
-			// ClientMainScreenController clientMainScreenController =
-			// loader.getController();
-			// clientMainScreenController.setErrorTxtFVisability(false);
-			Stage primaryStage = new Stage();
-			Image icon = new Image("/gui/icon1.jpeg");
-			primaryStage.getIcons().add(icon);
-			Scene scene = new Scene(root);
-			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
-			primaryStage.setScene(scene);
-			SurveryConclusionsScreenController sc = loader.getController();
-			sc.SetUser(user);
-			primaryStage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    }
-
     public void SetUser(User user) {
 		this.user = user;
 	}
+
 }

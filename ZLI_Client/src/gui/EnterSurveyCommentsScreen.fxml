@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="500.0" prefWidth="735.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EnterSurveyCommentsScreenController">
+   <top>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="55.0" prefWidth="115.0" HBox.hgrow="ALWAYS" />
+            <Label alignment="CENTER" contentDisplay="BOTTOM" prefHeight="62.0" prefWidth="504.0" text="Enter Survey Comments" textFill="#446154">
+               <font>
+                  <Font name="Cambria Bold" size="40.0" />
+               </font>
+               <graphic>
+                  <Line endX="402.20001220703125" endY="-7.62939453125E-6" startX="-100.0" stroke="#446154" />
+               </graphic>
+            </Label>
+            <Pane prefHeight="55.0" prefWidth="24.0" HBox.hgrow="ALWAYS" />
+            <HBox alignment="TOP_RIGHT" prefHeight="55.0" prefWidth="84.0">
+               <children>
+                  <Button alignment="TOP_CENTER" mnemonicParsing="false" onAction="#exit" prefHeight="18.0" prefWidth="31.0" style="-fx-background-color: #699481;" text="X" textFill="WHITE" fx:id="xBtn">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <Pane prefHeight="81.0" prefWidth="735.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="48.0" mnemonicParsing="false" onAction="#Back" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Back" textFill="WHITE">
+               <font>
+                  <Font name="Cambria Bold" size="16.0" />
+               </font>
+            </Button>
+            <Button layoutX="629.0" mnemonicParsing="false" onAction="#Save" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Save" textFill="WHITE">
+               <font>
+                  <Font name="Cambria Bold" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </bottom>
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="59.0" layoutY="71.0" text="Survey ID:" />
+            <Label layoutX="59.0" layoutY="119.0" text="Survey Type:" />
+            <Label layoutX="59.0" layoutY="165.0" prefHeight="17.0" prefWidth="79.0" text="Customer ID:" />
+            <Label layoutX="59.0" layoutY="211.0" prefHeight="17.0" prefWidth="79.0" text="Answers:" />
+            <TextField fx:id="surveyIDText" layoutX="159.0" layoutY="67.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets></TextField>
+            <TextField fx:id="surveyTypeText" layoutX="159.0" layoutY="115.0" />
+            <TextField fx:id="customerIDText" layoutX="159.0" layoutY="161.0" />
+            <Label layoutX="170.0" layoutY="232.0" prefHeight="17.0" prefWidth="361.0" text="A                 B               C               D               E               F" />
+            <ChoiceBox fx:id="AnswerA" layoutX="158.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
+            <ChoiceBox fx:id="AnswerB" layoutX="215.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
+            <ChoiceBox fx:id="AnswerC" layoutX="273.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
+            <ChoiceBox fx:id="AnswerD" layoutX="329.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
+            <ChoiceBox fx:id="AnswerE" layoutX="385.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
+            <ChoiceBox fx:id="AnswerF" layoutX="440.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
+            <Label layoutX="26.0" layoutY="7.0" prefHeight="17.0" prefWidth="464.0" text="Please fill the fields below per customer, and press &quot;Save&quot;:">
+               <font>
+                  <Font name="Cambria" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

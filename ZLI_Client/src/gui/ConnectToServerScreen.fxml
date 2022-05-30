@@ -21,7 +21,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="hostNameTxtFiled" alignment="CENTER" prefHeight="38.0" prefWidth="205.0" promptText="Host name" text="localhost" />
+            <TextField fx:id="hostNameTxtFiled" alignment="CENTER" onKeyPressed="#EnterPressed" prefHeight="38.0" prefWidth="205.0" promptText="Host name" text="localhost" />
             <Label fx:id="errorLable" alignment="CENTER" prefHeight="18.0" prefWidth="128.0" text="errorTxt" textFill="#6e0000" visible="false" />
             <Button fx:id="connectBtn" mnemonicParsing="false" onAction="#connect" prefHeight="30.0" prefWidth="118.0" text="Connect">
                <cursor>

@@ -74,6 +74,8 @@ public class OrdersScreenController implements Initializable {
 			DeliveryPersonScreenController sc = loader.getController();
 			//sc.setRoleName("de"); // needs to be general.
 			Stage primaryStage = new Stage();
+			DeliveryPersonScreenController dp = loader.getController();
+			dp.setRoleName(userName);
 			Image icon = new Image("/gui/icon1.jpeg");
 			primaryStage.getIcons().add(icon);
 			Scene scene = new Scene(root);

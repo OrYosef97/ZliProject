@@ -4,54 +4,58 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OrdersScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="751.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.OrdersScreenController">
    <children>
-      <ImageView fitHeight="501.0" fitWidth="685.0" layoutX="5.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Desktop/ZliServer/bb.jpeg" />
-         </image>
-      </ImageView>
-      <Line endX="412.199951171875" endY="1.52587890625E-5" layoutX="184.0" layoutY="64.0" startX="-100.0" stroke="#446154" />
+      <HBox alignment="CENTER" layoutX="111.0" prefHeight="98.0" prefWidth="640.0">
+         <children>
+            <Label alignment="TOP_CENTER" contentDisplay="BOTTOM" prefHeight="50.0" prefWidth="495.0" text="Available orders to deliver" textFill="#446154">
+               <font>
+                  <Font name="Cambria Bold" size="40.0" />
+               </font>
+               <graphic>
+                  <Line endX="412.199951171875" endY="1.52587890625E-5" startX="-100.0" stroke="#446154" />
+               </graphic>
+            </Label>
+            <HBox alignment="TOP_RIGHT" prefHeight="58.0" prefWidth="107.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#exit" prefHeight="18.0" prefWidth="31.0" style="-fx-background-color: #699481;" text="X" textFill="WHITE" fx:id="xBtn">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
       <Button layoutX="54.0" layoutY="422.0" mnemonicParsing="false" onAction="#BackBtn" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Back" textFill="WHITE">
          <font>
             <Font name="Cambria Bold" size="16.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="92.0" layoutY="14.0" prefHeight="50.0" prefWidth="495.0" text="Available orders to deliver" textFill="#446154">
-         <font>
-            <Font name="Cambria Bold" size="40.0" />
-         </font>
-      </Label>
-      <Button layoutX="634.0" layoutY="14.0" mnemonicParsing="false" onAction="#exit" prefHeight="18.0" prefWidth="31.0" style="-fx-background-color: #699481;" text="X" textFill="WHITE" fx:id="xBtn">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <TableView fx:id="OrdersTable" layoutX="11.0" layoutY="111.0" prefHeight="242.0" prefWidth="657.0">
+      <TableView fx:id="OrdersTable" layoutX="11.0" layoutY="127.0" prefHeight="242.0" prefWidth="731.0">
         <columns>
           <TableColumn fx:id="OrderNumColum" prefWidth="95.99996662139893" text="OrderNumber" />
             <TableColumn fx:id="CustomerNameColumn" prefWidth="126.4000244140625" text="Customer's Name" />
             <TableColumn fx:id="AddressColumn" prefWidth="128.8000030517578" text="Address" />
-            <TableColumn fx:id="BranchColum" minWidth="0.0" prefWidth="84.0" text="branch" />
-            <TableColumn fx:id="DeliveryDateColum" prefWidth="93.5999755859375" text="deliveryDate" />
-          <TableColumn fx:id="PriceColum" prefWidth="67.20001220703125" text="Price" />
+            <TableColumn fx:id="BranchColum" minWidth="0.0" prefWidth="84.0" text="Branch" />
+            <TableColumn fx:id="DeliveryDateColum" prefWidth="164.800048828125" text="Delivery Date" />
+          <TableColumn fx:id="PriceColum" prefWidth="57.59991455078125" text="Price" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="545.0" layoutY="422.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="30.0" prefWidth="83.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Confirm" textFill="WHITE">
+      <Button layoutX="627.0" layoutY="422.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="30.0" prefWidth="83.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Confirm" textFill="WHITE">
          <font>
             <Font name="Cambria Bold" size="16.0" />
          </font>
       </Button>
-      <Label layoutX="14.0" layoutY="78.0" text="Please select an Order and press &quot;Confirm&quot;:">
+      <Label layoutX="14.0" layoutY="90.0" text="Please select an Order and press &quot;Confirm&quot;:">
          <font>
             <Font name="Cambria" size="16.0" />
          </font>

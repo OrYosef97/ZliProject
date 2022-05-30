@@ -72,6 +72,8 @@ public class SurveryConclusionsScreenController implements Initializable {
 			// loader.getController();
 			// clientMainScreenController.setErrorTxtFVisability(false);
 			Stage primaryStage = new Stage();
+			CustomerServiceWorkerMainScreenController csw = loader.getController();
+			csw.SetUser(user);
 			Image icon = new Image("/gui/icon1.jpeg");
 			primaryStage.getIcons().add(icon);
 			Scene scene = new Scene(root);
@@ -111,7 +113,6 @@ public class SurveryConclusionsScreenController implements Initializable {
 	@FXML
 	void exit(ActionEvent event) {
 		ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName())); //loggedin = 0
-    	String s = (String)ClientChat.returnedValueFromServer;
     	System.exit(0);
 	}
 	

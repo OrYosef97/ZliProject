@@ -12,6 +12,7 @@ import DBConnector.CustomerServiceWorkerDBConnector;
 import DBConnector.DeliveryDBConnector;
 import DBConnector.GeneralConnector;
 import DBConnector.SmDBConnector;
+import DBConnector.WorkerDBConnector;
 import common.Message;
 import enumType.ServerMessageType;
 import logic.Customer;
@@ -189,7 +190,28 @@ public class EchoServer extends AbstractServer {
 			} catch (IOException e) {
 			}
 			break;
-
+			
+		case UpdateSurveyComment: // added by gal
+			try {
+				@SuppressWarnings("unchecked")
+				ArrayList<Object> data = (ArrayList<Object>) message.getObj();
+				Integer surveyID = (Integer) data.get(0);
+		    	Integer customerID= (Integer) data.get(1);
+		    	String surveyType = (String) data.get(2);
+		    	String userName= (String) data.get(3);
+		    	Integer ans1 = (Integer) data.get(4);
+		    	Integer ans2 = (Integer) data.get(5);
+		    	Integer ans3 = (Integer) data.get(6);
+		    	Integer ans4 = (Integer) data.get(7);
+		    	Integer ans5 = (Integer) data.get(8);
+		    	Integer ans6 = (Integer) data.get(9);
+				boolean succeeded = WorkerDBConnector.UpdateSurveyComment(surveyID, surveyType, userName, customerID, ans1, ans2, ans3, ans4, ans5, ans6);
+				client.sendToClient(new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
+																													// from
+																													// sendToAllClient
+			} catch (IOException e) {
+			}
+			break;
 		case AddConclusion: // added by gal
 			try {
 				// System.out.println(splitString[0] + " test");

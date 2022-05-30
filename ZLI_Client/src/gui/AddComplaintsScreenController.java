@@ -73,7 +73,7 @@ public class AddComplaintsScreenController {
 			primaryStage.getIcons().add(icon);
 			Scene scene = new Scene(root);
 			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
-		    CustomerServiceWorkerMainScreenController csw = new CustomerServiceWorkerMainScreenController();
+		    CustomerServiceWorkerMainScreenController csw = loader.getController();
 		    csw.SetUser(user);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -85,6 +85,7 @@ public class AddComplaintsScreenController {
 
     @FXML
     void exit(ActionEvent event) {
+    	
     	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName())); //loggedin = 0
     	System.exit(0);
     }

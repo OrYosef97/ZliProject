@@ -15,7 +15,10 @@ public enum ClientMessageType {
 	UpdateOrderDelivered,GetClientsOrders, 
 	
 	/*Customer Service Worker operations*/
-	AddComplaint, GetSurveys, AddConclusion,
+	AddComplaint, GetSurveys, AddConclusion, 
+	
+	/*Worker operations*/
+	UpdateSurveyComment,
 	
 	
 	
