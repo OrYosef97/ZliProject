@@ -110,16 +110,16 @@ public class CancelOrderScreenController implements Initializable {
 	void cancelOrder(ActionEvent event) throws IOException {
 
 		Order selectedOrder = ordersTable.getSelectionModel().getSelectedItem();
-		if (selectedOrder.getStatus().equals("Done")) {
-			Alert infoAlert = new Alert(AlertType.INFORMATION, "Order Already Done!",
-					ButtonType.OK);
-			infoAlert.showAndWait();
-			return;
-		}
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to cancel this order?", ButtonType.YES,
-				ButtonType.NO);
-		Optional<ButtonType> r;
+
 		if (selectedOrder != null) {
+			if (selectedOrder.getStatus().equals("Done")||selectedOrder.getStatus().equals("Pending for manager approvel")) {
+				Alert infoAlert = new Alert(AlertType.INFORMATION, "Order Already Done!", ButtonType.OK);
+				infoAlert.showAndWait();
+				return;
+			}
+			Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to cancel this order?",
+					ButtonType.YES, ButtonType.NO);
+			Optional<ButtonType> r;
 			r = alert.showAndWait();
 			if (r.isPresent() && r.get() == ButtonType.YES) {
 				ClientUI.chat.accept(new Message(ClientMessageType.UpadteOrderStatus, selectedOrder));
@@ -128,30 +128,33 @@ public class CancelOrderScreenController implements Initializable {
 					Alert infoAlert = new Alert(AlertType.INFORMATION, "Your request is waiting for manager approval",
 							ButtonType.OK);
 					infoAlert.showAndWait();
+					selectedOrder.setStatus("Pending for manager approvel");
+					ordersTable.refresh();
 
-					((Node) event.getSource()).getScene().getWindow().hide();
-					Stage primaryStage = new Stage();
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CancelOrderScreen.fxml"));
-					Parent root = loader.load();
-					CancelOrderScreenController cos = loader.getController();
-					cos.setUser(user);
-					cos.setOrders();
-					Scene scene = new Scene(root);
-					primaryStage.setTitle("My Orders");
-					primaryStage.setScene(scene);
-					primaryStage.show();
+//					((Node) event.getSource()).getScene().getWindow().hide();
+//					Stage primaryStage = new Stage();
+//					FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CancelOrderScreen.fxml"));
+//					Parent root = loader.load();
+//					CancelOrderScreenController cos = loader.getController();
+//					cos.setUser(user);
+//					cos.setOrders();
+//					Scene scene = new Scene(root);
+//					primaryStage.setTitle("My Orders");
+//					primaryStage.setScene(scene);
+//					primaryStage.show();
 
+				} else {
+					Alert infoAlert = new Alert(AlertType.INFORMATION, "You cant cancel this order", ButtonType.OK);
+					infoAlert.showAndWait();
 				}
-
-			} else
-				return;
+			}
+			
 		}
-
 		else {
+			
 			Alert infoAlert = new Alert(AlertType.INFORMATION, "You have to choose order to cancel", ButtonType.OK);
 			infoAlert.showAndWait();
 		}
-
 	}
 
 	@Override
