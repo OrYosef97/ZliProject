@@ -5,13 +5,8 @@ import java.util.ArrayList;
 
 @SuppressWarnings("serial")
 public class Order implements Serializable {
-<<<<<<< Upstream, based on branch 'master' of https://github.com/OrYosef97/ZliProject.git
 	private Integer orderNumber;
 	private Integer userID;
-=======
-	private Integer orderNumber;
-	private Integer userID;
->>>>>>> 1e25302 test
 	private String greeting;
 	private Integer isSelfMade;
 	private String orderDetails;
@@ -25,27 +20,12 @@ public class Order implements Serializable {
 	private String orderDate;
 	private String status;
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/OrYosef97/ZliProject.git
 	public Order(Integer orderNumber, Integer userID, String greeting, Integer isSelfMade, String orderDetails,
 			Integer hasDelivery, String address, String deliveryDate, String branch, String paymentDetails,
 			Double price, String orderDate, String status) {
-=======
-	
-
-
-	
-	public Order(Integer orderNumber, Integer userID, String greeting, Integer isSelfMade, String orderDetails, Integer hasDelivery,
-			String address, String deliveryDate, String branch, String paymentDetails,
-			Double price,String orderDate, String status) {
->>>>>>> 1e25302 test
 		super();
-<<<<<<< Upstream, based on branch 'master' of https://github.com/OrYosef97/ZliProject.git
 		this.orderNumber = orderNumber;
 		this.userID = userID;
-=======
-		this.orderNumber = orderNumber;
-		this.userID = userID;
->>>>>>> 1e25302 test
 		this.greeting = greeting;
 		this.isSelfMade = isSelfMade;
 		this.hasDelivery = hasDelivery;
@@ -173,21 +153,7 @@ public class Order implements Serializable {
 		return userID;
 	}
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/OrYosef97/ZliProject.git
-=======
-
-
-
-	public Integer getUserID() {
->>>>>>> 1e25302 test
-
-<<<<<<< Upstream, based on branch 'master' of https://github.com/OrYosef97/ZliProject.git
 	public void setUserID(Integer userID) {
 		this.userID = userID;
-=======
-		return userID;
-
->>>>>>> 1e25302 test
 	}
-
 }
