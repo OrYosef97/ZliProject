@@ -17,70 +17,82 @@ import logic.User;
 
 public class CustomerMainScreenController {
 
-    @FXML
-    private Button canelOrderBtn;
+	@FXML
+	private Button canelOrderBtn;
 
-    @FXML
-    private Button createOrderBtn;
+	@FXML
+	private Button createOrderBtn;
 
-    @FXML
-    private Button logOutBtn;
+	@FXML
+	private Button logOutBtn;
 
-    @FXML
-    private Button xBtn;
-    
-    User user;
+	@FXML
+	private Button xBtn;
 
-    public User getUser() {
+	private User user;
+
+	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
-		this.user= user;
+		this.user = user;
 	}
 
 	@FXML
-    void OpenCancelOrderScreen(ActionEvent event) {//to ilan's screen
+	void OpenCancelOrderScreen(ActionEvent event) throws IOException {
 
-    }
-
-    @FXML
-    void OpenCatalogScreen(ActionEvent event) throws IOException {
-    	((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
+		((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
 		Stage primaryStage = new Stage();
-		
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CreateOrderScreen.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CancelOrderScreen.fxml"));
+		Parent root = loader.load();
+		CancelOrderScreenController cos = loader.getController();
+		cos.setUser(user);
+		cos.setOrders();
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("My Orders");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+
+	}
+
+	@FXML
+	void OpenCatalogScreen(ActionEvent event) throws IOException {
+		((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
+		Stage primaryStage = new Stage();
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CreateOrderScreen.fxml"));
 		Parent root = loader.load();
 		CreateOrderScreenController coSC = loader.getController();
 		coSC.setUser(user);
 		Scene scene = new Scene(root);
-		
+
 		primaryStage.setTitle("Creat Order Window");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-    }
+	}
 
-    @FXML
-    void OpenLogInScreen(ActionEvent event) throws IOException {
-    	System.out.println("opening loging screen and disconnecting user");
-    	ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,user.getUserName()+" 0")); //loggedin = 0
-    	
-    	((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
+	@FXML
+	void OpenLogInScreen(ActionEvent event) throws IOException {
+		System.out.println("opening loging screen and disconnecting user");
+		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn, user.getUserName() + " 0")); // loggedin = 0
+
+		((Node) event.getSource()).getScene().getWindow().hide(); // hiding primary window
 		Stage primaryStage = new Stage();
-		
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
 		Parent root = loader.load();
 		Scene scene = new Scene(root);
-		
+
 		primaryStage.setTitle("Login Window");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-    }
+	}
 
-    @FXML
-    void exit(ActionEvent event) {
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName()+" 0")); //loggedin = 0
-    	System.exit(0);
-    }
+	@FXML
+	void exit(ActionEvent event) {
+		ClientUI.chat.accept(new Message(ClientMessageType.EXIT, user.getUserName() + " 0")); // loggedin = 0
+		System.exit(0);
+	}
 
 }

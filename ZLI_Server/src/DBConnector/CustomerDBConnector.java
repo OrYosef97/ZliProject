@@ -78,5 +78,19 @@ public class CustomerDBConnector {
 		}
 	}
 	
-	
+	public static boolean updateOrderStatus(Order order) {
+		PreparedStatement stmt;
+		try {
+			
+			stmt = GeneralConnector.conn.prepareStatement("UPDATE orders SET status=? WHERE orderID=?;");
+			stmt.setString(1, "Pending for manager approvel");
+			stmt.setInt(2, order.getOrderNumber());
+			stmt.executeUpdate();
+			return true;
+		}
+		catch (Exception e) {
+			System.out.println("Can Not update customer order status!");
+			return false;
+		}
+	}
 }

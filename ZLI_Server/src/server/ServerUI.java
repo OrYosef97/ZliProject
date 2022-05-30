@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class ServerUI extends Application {
 	final public static int DEFAULT_PORT = 5555;
@@ -26,6 +27,7 @@ public class ServerUI extends Application {
 		Image icon = new Image("/gui/icon1.jpeg");
 		primaryStage.getIcons().add(icon);
 		primaryStage.setTitle("Zli Server Window");
+		primaryStage.initStyle(StageStyle.UNDECORATED);// remove x, minimize and maximize buttons from stage
 		primaryStage.setScene(serverScene);
 		primaryStage.show();
 

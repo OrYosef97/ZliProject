@@ -6,7 +6,7 @@ public enum ClientMessageType {
 	LOGIN,LOGOUT,UpdateLoggedIn,EXIT,
 	
 	/*customer operations*/
-	GetItems, GetProducts, GetCustomer,  GetCustomerOrders,
+	GetItems, GetProducts, GetCustomer,  GetCustomerOrders,UpadteOrderStatus,
 	
 	/*Store Manager operations*/
 	GetCustomerDetails,
