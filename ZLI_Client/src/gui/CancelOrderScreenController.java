@@ -112,9 +112,14 @@ public class CancelOrderScreenController implements Initializable {
 		Order selectedOrder = ordersTable.getSelectionModel().getSelectedItem();
 
 		if (selectedOrder != null) {
-			if (selectedOrder.getStatus().equals("Done")
-					|| selectedOrder.getStatus().equals("Pending for manager approvel")) {
+			if (selectedOrder.getStatus().equals("Done")) {
 				Alert infoAlert = new Alert(AlertType.INFORMATION, "Order Already Done!", ButtonType.OK);
+				infoAlert.showAndWait();
+				return;
+			}
+			
+			if(selectedOrder.getStatus().equals("Pending for manager approvel")) {
+				Alert infoAlert = new Alert(AlertType.INFORMATION, "Your request is in treatment", ButtonType.OK);
 				infoAlert.showAndWait();
 				return;
 			}
