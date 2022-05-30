@@ -112,7 +112,8 @@ public class CancelOrderScreenController implements Initializable {
 		Order selectedOrder = ordersTable.getSelectionModel().getSelectedItem();
 
 		if (selectedOrder != null) {
-			if (selectedOrder.getStatus().equals("Done")||selectedOrder.getStatus().equals("Pending for manager approvel")) {
+			if (selectedOrder.getStatus().equals("Done")
+					|| selectedOrder.getStatus().equals("Pending for manager approvel")) {
 				Alert infoAlert = new Alert(AlertType.INFORMATION, "Order Already Done!", ButtonType.OK);
 				infoAlert.showAndWait();
 				return;
@@ -131,27 +132,14 @@ public class CancelOrderScreenController implements Initializable {
 					selectedOrder.setStatus("Pending for manager approvel");
 					ordersTable.refresh();
 
-//					((Node) event.getSource()).getScene().getWindow().hide();
-//					Stage primaryStage = new Stage();
-//					FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CancelOrderScreen.fxml"));
-//					Parent root = loader.load();
-//					CancelOrderScreenController cos = loader.getController();
-//					cos.setUser(user);
-//					cos.setOrders();
-//					Scene scene = new Scene(root);
-//					primaryStage.setTitle("My Orders");
-//					primaryStage.setScene(scene);
-//					primaryStage.show();
-
 				} else {
 					Alert infoAlert = new Alert(AlertType.INFORMATION, "You cant cancel this order", ButtonType.OK);
 					infoAlert.showAndWait();
 				}
 			}
-			
-		}
-		else {
-			
+
+		} else {
+
 			Alert infoAlert = new Alert(AlertType.INFORMATION, "You have to choose order to cancel", ButtonType.OK);
 			infoAlert.showAndWait();
 		}
