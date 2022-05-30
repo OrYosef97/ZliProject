@@ -1,15 +1,9 @@
 package DBConnector;
 
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import common.Converter;
-import logic.Survey;
+import java.time.LocalDate;
 
 /*
  * @author Gal
@@ -42,5 +36,40 @@ public class WorkerDBConnector {
 		}
 		return true;
 	}
-
+	public static boolean CheckOrCreateSurveyResults(Integer surveyID) {
+		
+		PreparedStatement stmt;//
+		try {
+			/*check if the survey exist*/
+			stmt = GeneralConnector.conn.prepareStatement("select surveyID from survey_results");
+			ResultSet rs = stmt.executeQuery();
+			if(!rs.next()) { //empty table
+			/*add new survey result*/
+			stmt = GeneralConnector.conn.prepareStatement("INSERT INTO survey_results "
+					+ "(surveyID,surveyDate,participantsNo,surveyType,conclusions)"
+					+"VALUES (?,2022-2-2,0,0,null) ");
+			stmt.setInt(1, surveyID);
+			stmt.execute();
+			}
+			else{
+				rs.beforeFirst();
+			 while (rs.next()) {
+				 Integer ID = rs.getInt(1);
+				 if(ID.equals(surveyID)) return true;//found the survey
+			 }
+			 /*not found. create a new survey result*/
+			 String Date ="2022-02-02";
+			 stmt = GeneralConnector.conn.prepareStatement("INSERT INTO survey_results "
+						+ "(surveyID,surveyDate,participantsNo,surveyType,conclusions)"
+						+"VALUES (?,?,0,0,null) ");
+				stmt.setInt(1, surveyID);
+				stmt.setString(2, Date);
+				stmt.execute();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 }

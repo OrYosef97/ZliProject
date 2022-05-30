@@ -57,27 +57,38 @@
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="59.0" layoutY="71.0" text="Survey ID:" />
-            <Label layoutX="59.0" layoutY="119.0" text="Survey Type:" />
-            <Label layoutX="59.0" layoutY="165.0" prefHeight="17.0" prefWidth="79.0" text="Customer ID:" />
-            <Label layoutX="59.0" layoutY="211.0" prefHeight="17.0" prefWidth="79.0" text="Answers:" />
+            <Label fx:id="suveryLabel" layoutX="59.0" layoutY="180.0" text="Survey Type:" visible="false" />
+            <Label fx:id="customerIDLabel" layoutX="59.0" layoutY="226.0" prefHeight="17.0" prefWidth="79.0" text="Customer ID:" visible="false" />
+            <Label fx:id="answersLabel" layoutX="59.0" layoutY="272.0" prefHeight="17.0" prefWidth="79.0" text="Answers:" visible="false" />
             <TextField fx:id="surveyIDText" layoutX="159.0" layoutY="67.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets></TextField>
-            <TextField fx:id="surveyTypeText" layoutX="159.0" layoutY="115.0" />
-            <TextField fx:id="customerIDText" layoutX="159.0" layoutY="161.0" />
-            <Label layoutX="170.0" layoutY="232.0" prefHeight="17.0" prefWidth="361.0" text="A                 B               C               D               E               F" />
-            <ChoiceBox fx:id="AnswerA" layoutX="158.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
-            <ChoiceBox fx:id="AnswerB" layoutX="215.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
-            <ChoiceBox fx:id="AnswerC" layoutX="273.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
-            <ChoiceBox fx:id="AnswerD" layoutX="329.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
-            <ChoiceBox fx:id="AnswerE" layoutX="385.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
-            <ChoiceBox fx:id="AnswerF" layoutX="440.0" layoutY="199.0" prefHeight="25.0" prefWidth="43.0" />
-            <Label layoutX="26.0" layoutY="7.0" prefHeight="17.0" prefWidth="464.0" text="Please fill the fields below per customer, and press &quot;Save&quot;:">
+            <TextField fx:id="surveyTypeText" layoutX="159.0" layoutY="176.0" visible="false" />
+            <TextField fx:id="customerIDText" layoutX="159.0" layoutY="222.0" visible="false" />
+            <Label fx:id="optionsLabel" layoutX="170.0" layoutY="300.0" prefHeight="17.0" prefWidth="361.0" text="A                 B               C               D               E               F" visible="false" />
+            <ChoiceBox fx:id="AnswerA" layoutX="158.0" layoutY="267.0" prefHeight="25.0" prefWidth="43.0" visible="false" />
+            <ChoiceBox fx:id="AnswerB" layoutX="215.0" layoutY="267.0" prefHeight="25.0" prefWidth="43.0" visible="false" />
+            <ChoiceBox fx:id="AnswerC" layoutX="273.0" layoutY="267.0" prefHeight="25.0" prefWidth="43.0" visible="false" />
+            <ChoiceBox fx:id="AnswerD" layoutX="329.0" layoutY="267.0" prefHeight="25.0" prefWidth="43.0" visible="false" />
+            <ChoiceBox fx:id="AnswerE" layoutX="385.0" layoutY="267.0" prefHeight="25.0" prefWidth="43.0" visible="false" />
+            <ChoiceBox fx:id="AnswerF" layoutX="440.0" layoutY="267.0" prefHeight="25.0" prefWidth="43.0" visible="false" />
+            <Label layoutX="26.0" layoutY="12.0" prefHeight="17.0" prefWidth="464.0" text="Please enter the survey ID and press &quot;Enter&quot;&quot;">
                <font>
                   <Font name="Cambria" size="16.0" />
                </font>
             </Label>
+            <Label fx:id="fillLabel" layoutX="26.0" layoutY="133.0" prefHeight="17.0" prefWidth="464.0" text="Please fill the fields below per customer, and press &quot;Save&quot;:" visible="false">
+               <font>
+                  <Font name="Cambria" size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="enterBtn" layoutX="330.0" layoutY="64.0" mnemonicParsing="false" onAction="#Enter" prefHeight="30.0" prefWidth="76.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Enter" textFill="WHITE">
+               <font>
+                  <Font name="Cambria Bold" size="16.0" />
+               </font>
+            </Button>
+            <Line fx:id="line" endX="215.5999755859375" endY="-0.5" layoutX="214.0" layoutY="124.0" startX="-187.0" startY="-0.5" visible="false" />
          </children>
       </Pane>
    </center>

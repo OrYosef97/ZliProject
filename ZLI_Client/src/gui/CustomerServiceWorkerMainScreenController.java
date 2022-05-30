@@ -56,7 +56,7 @@ public class CustomerServiceWorkerMainScreenController {
     void LogOut(ActionEvent event) {
     	try {
     		//System.out.println(userName);
-    		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,user.getUserName()));
+    		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,user.getUserName()+" 0"));
 			((Node) event.getSource()).getScene().getWindow().hide();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
 			Pane root = loader.load();

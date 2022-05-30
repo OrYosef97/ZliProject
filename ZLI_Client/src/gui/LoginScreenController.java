@@ -81,7 +81,7 @@ public class LoginScreenController implements Initializable {
 			Stage primaryStage = new Stage();
 			/* update user info to Logged in */
 			user.setUserName(usernameTextField.getText());
-			ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn, user.getUserName() + " 1"));
+		//	ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn, user.getUserName() + " 1"));
 			switch (user.getUserType()) {
 			case CUSTOMER:
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/CustomerMainScreen1.fxml"));
@@ -102,7 +102,7 @@ public class LoginScreenController implements Initializable {
 				FXMLLoader loader2 = new FXMLLoader(getClass().getResource("/gui/DeliveryPersonScreen.fxml"));
 				Parent root2 = loader2.load();
 				DeliveryPersonScreenController dc = loader2.getController();
-				dc.setRoleName(user.getUserName());
+				dc.setUser(user);
 				// dc.setRoleName(usernameTextField.getText().trim());
 				Scene scene2 = new Scene(root2);
 				// Image icon = new Image("/images.img/icon1.jpeg");

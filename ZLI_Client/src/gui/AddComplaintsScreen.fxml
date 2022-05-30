@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.AddComplaintsScreenController">
    <children>
-      <ImageView fitHeight="501.0" fitWidth="685.0" layoutX="5.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="501.0" fitWidth="685.0" layoutX="5.0" layoutY="9.0" opacity="0.4" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Desktop/ZliServer/bb.jpeg" />
          </image>
@@ -39,14 +38,12 @@
             <Font name="Cambria" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="54.0" layoutY="131.0" text="Customer's Name:" />
-      <Label layoutX="54.0" layoutY="168.0" text="Customer's ID: " />
-      <Label layoutX="54.0" layoutY="204.0" text="Date:" />
+      <Label layoutX="54.0" layoutY="151.0" text="Customer's Name:" />
+      <Label layoutX="54.0" layoutY="197.0" text="Customer's ID: " />
       <Label layoutX="54.0" layoutY="242.0" text="Enter Complaint:" />
       <TextArea fx:id="complaintTextArea" layoutX="54.0" layoutY="267.0" prefHeight="140.0" prefWidth="598.0" />
-      <TextField fx:id="cutomerNameField" layoutX="163.0" layoutY="127.0" promptText="Enter Name" />
-      <TextField fx:id="idField" layoutX="162.0" layoutY="164.0" prefHeight="26.0" prefWidth="150.0" promptText="Enter ID" />
-      <DatePicker fx:id="dateField" layoutX="162.0" layoutY="199.0" prefHeight="26.0" prefWidth="150.0" promptText="Enter Date" />
+      <TextField fx:id="cutomerNameField" layoutX="163.0" layoutY="147.0" promptText="Enter Name" />
+      <TextField fx:id="idField" layoutX="162.0" layoutY="193.0" prefHeight="26.0" prefWidth="150.0" promptText="Enter ID" />
       <Button fx:id="confirmBtn" layoutX="543.0" layoutY="422.0" mnemonicParsing="false" onAction="#Confirm" prefHeight="30.0" prefWidth="88.0" style="-fx-background-radius: 10 10 10 10; -fx-background-color: #699481;" text="Confirm" textFill="WHITE">
          <font>
             <Font name="Cambria Bold" size="16.0" />

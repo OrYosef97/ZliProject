@@ -30,36 +30,42 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import logic.Order;
+import logic.OrderDelivery;
+import logic.User;
 
 public class OrdersScreenController implements Initializable {
 
 	@FXML
 	private Button xBtn;
+	@FXML
+    private TableColumn<OrderDelivery, String> phoneColumn;
+
 
 	@FXML
-	private TableView<Order> OrdersTable;
+	private TableView<OrderDelivery> OrdersTable;
 
 	@FXML
-	private TableColumn<Order, Integer> OrderNumColum;
+	private TableColumn<OrderDelivery, Integer> OrderNumColum;
 
 	@FXML
-	private TableColumn<Order, String> BranchColum;
+	private TableColumn<OrderDelivery, String> BranchColum;
 
 	@FXML
-	private TableColumn<Order, String> DeliveryDateColum;
+	private TableColumn<OrderDelivery, String> DeliveryDateColum;
 
 	@FXML
-	private TableColumn<Order, Integer> PriceColum;
+	private TableColumn<OrderDelivery, Integer> PriceColum;
 
 	@FXML
-	private TableColumn<Order, String> CustomerNameColumn;
+	private TableColumn<OrderDelivery, String> CustomerNameColumn;
 
 	@FXML
-	private TableColumn<Order, String> AddressColumn;
+	private TableColumn<OrderDelivery, String> AddressColumn;
 
-	ObservableList<Order> orders;
+	ObservableList<OrderDelivery> orders;
 	
-	String userName;
+	User user;
+	String CustName;
 
 	@FXML
 	void BackBtn(ActionEvent event) {
@@ -68,14 +74,9 @@ public class OrdersScreenController implements Initializable {
 			((Node) event.getSource()).getScene().getWindow().hide();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/DeliveryPersonScreen.fxml"));
 			Pane root = loader.load();
-			// ClientMainScreenController clientMainScreenController =
-			// loader.getController();
-			// clientMainScreenController.setErrorTxtFVisability(false);
-			DeliveryPersonScreenController sc = loader.getController();
-			//sc.setRoleName("de"); // needs to be general.
 			Stage primaryStage = new Stage();
 			DeliveryPersonScreenController dp = loader.getController();
-			dp.setRoleName(userName);
+			dp.setUser(user);
 			Image icon = new Image("/gui/icon1.jpeg");
 			primaryStage.getIcons().add(icon);
 			Scene scene = new Scene(root);
@@ -89,30 +90,29 @@ public class OrdersScreenController implements Initializable {
 
 	@FXML
 	void exit(ActionEvent event) {
-		ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
+		ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName()+" 0")); //loggedin = 0
 		System.exit(0);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		orders = FXCollections.observableArrayList();
-		OrderNumColum.setCellValueFactory(new PropertyValueFactory<Order, Integer>("orderNumber"));
-		AddressColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("address"));
-		CustomerNameColumn.setCellValueFactory(new PropertyValueFactory<Order, String>("customerName"));
-		PriceColum.setCellValueFactory(new PropertyValueFactory<Order, Integer>("price"));
-		// orderDetailsColum.setCellValueFactory(new PropertyValueFactory<Order,
-		// String>("Details"));
-		BranchColum.setCellValueFactory(new PropertyValueFactory<Order, String>("branch"));
-		DeliveryDateColum.setCellValueFactory(new PropertyValueFactory<Order, String>("deliveryDate"));
+		OrderNumColum.setCellValueFactory(new PropertyValueFactory<OrderDelivery, Integer>("orderNumber"));
+		AddressColumn.setCellValueFactory(new PropertyValueFactory<OrderDelivery, String>("address"));
+		CustomerNameColumn.setCellValueFactory(new PropertyValueFactory<OrderDelivery, String>("customerName"));
+		phoneColumn.setCellValueFactory(new PropertyValueFactory<OrderDelivery, String>("phoneNumber"));
+		PriceColum.setCellValueFactory(new PropertyValueFactory<OrderDelivery, Integer>("price"));
+		BranchColum.setCellValueFactory(new PropertyValueFactory<OrderDelivery, String>("branch"));
+		DeliveryDateColum.setCellValueFactory(new PropertyValueFactory<OrderDelivery, String>("deliveryDate"));
 		OrdersTable.setItems(orders);
 
 	}
 
 	public void loadOrders() {
-		ClientUI.chat.accept(new Message(ClientMessageType.GetClientsOrders, ""));
+		ClientUI.chat.accept(new Message(ClientMessageType.GetClientsOrdersDelivery,"item"));
 		Message message = (Message) ClientChat.returnedValueFromServer;
-
-		ArrayList<Order> ordersArray = (ArrayList<Order>) message.getObj();
+		ArrayList<OrderDelivery> ordersArray = (ArrayList<OrderDelivery>) message.getObj();
+		
 		for(int i=0;i<ordersArray.size();i++) {
 			if(ordersArray.get(i).getHasDelivery()==0) ordersArray.remove(i);
 		}
@@ -123,6 +123,7 @@ public class OrdersScreenController implements Initializable {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
+		
 				orders.addAll(ordersArray);
 				System.out.println("update " + orders);// just for check
 				OrdersTable.refresh();
@@ -138,7 +139,7 @@ public class OrdersScreenController implements Initializable {
 		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure?", ButtonType.YES, ButtonType.NO);
 		Optional<ButtonType> r = alert.showAndWait();
 		if (r.isPresent() && r.get() == ButtonType.YES) {
-			Order selectedOrder = OrdersTable.getFocusModel().getFocusedItem();
+			Order selectedOrder = (Order) OrdersTable.getFocusModel().getFocusedItem();
 			ClientUI.chat.accept(new Message(ClientMessageType.UpdateOrderDelivered, selectedOrder.getOrderNumber()));
 			OrdersTable.getItems().removeAll(OrdersTable.getSelectionModel().getSelectedItems());// or: why you dont
 																									// send
@@ -146,8 +147,8 @@ public class OrdersScreenController implements Initializable {
 			OrdersTable.refresh();
 		}
 	}
-	public void SetUserName(String userName) {
-		this.userName = userName;
+	public void SetUser(User user) {
+		this.user = user;
 	}
 
 }

@@ -92,11 +92,14 @@ public class AddComplaintsScreenController {
     
     void addComplaintToDB () {
     	Integer CustomerID = Integer.parseInt(idField.getText().trim());
-    	LocalDate Date = dateField.getValue();
+    	LocalDate Date=null;
+    	Date = Date.now();
+    	LocalDate endDate = Date.plusDays(3);
     	String Text = complaintTextArea.getText();
     	ArrayList<Object> data = new ArrayList<>();
     	data.add(CustomerID);
-    	data.add(Date);
+    	data.add(Date.toString());
+    	data.add(endDate.toString());
     	data.add(Text);
     	ClientUI.chat.accept(new Message(ClientMessageType.AddComplaint,data));
     	

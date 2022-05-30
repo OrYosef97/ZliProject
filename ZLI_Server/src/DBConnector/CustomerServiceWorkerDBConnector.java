@@ -17,15 +17,19 @@ import logic.Survey;
  */
 public class CustomerServiceWorkerDBConnector {
 
-	public static Boolean UpdateComplaint(Integer CustomerID,String Date,String Text) {
+	public static Boolean UpdateComplaint(Integer CustomerID,String Date,String endDate,String Text) {
 		PreparedStatement stmt;//
 		try {
+			int num;
 			stmt = GeneralConnector.conn.prepareStatement("select complaintID from complaints;");
 			ResultSet rs = stmt.executeQuery();
-			rs.last();
-			int num = rs.getInt("complaintID"); //get the last complaintID
+			if(!rs.next()) num =0;
+			else{
+			 rs.last();
+			 num = rs.getInt("complaintID"); //get the last complaintID
+			}
 			num++;
-			String ExpDate = Date;
+			String ExpDate = endDate;
 			Integer ComplaintID=num,Refund =0;
 			String Status = "Pending";
 			stmt = GeneralConnector.conn.prepareStatement("INSERT INTO complaints"

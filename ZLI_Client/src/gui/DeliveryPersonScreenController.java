@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import logic.User;
 
 public class DeliveryPersonScreenController {
 
@@ -24,7 +25,7 @@ public class DeliveryPersonScreenController {
     @FXML
     private Button createOrderBtn;
     
-    String userName;
+    User user;
     
    
 
@@ -44,7 +45,7 @@ public class DeliveryPersonScreenController {
 			//scene.getStylesheets().add(getClass().getResource("background.css").toExternalForm());
 			primaryStage.setScene(scene);
 		    OrdersScreenController oc =loader.getController();
-		    oc.SetUserName(userName);
+		    oc.SetUser(user);
 			oc.loadOrders();
 			primaryStage.show();
 		} catch (Exception e) {
@@ -55,7 +56,7 @@ public class DeliveryPersonScreenController {
     @FXML
     void LogOut(ActionEvent event) {
     	try {
-    		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,userName+" 0"));
+    		ClientUI.chat.accept(new Message(ClientMessageType.UpdateLoggedIn,user.getUserName()+" 0"));
 			((Node) event.getSource()).getScene().getWindow().hide();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/LoginScreen.fxml"));
 			Pane root = loader.load();
@@ -77,12 +78,12 @@ public class DeliveryPersonScreenController {
 
     @FXML
     void exit(ActionEvent event) {
-    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,userName+" 0")); //loggedin = 0
+    	ClientUI.chat.accept(new Message(ClientMessageType.EXIT,user.getUserName()+" 0")); //loggedin = 0
     	System.exit(0);
     }
 
-	public void setRoleName(String roleName) {
-		userName = roleName;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

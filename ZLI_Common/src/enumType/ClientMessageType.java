@@ -12,13 +12,13 @@ public enum ClientMessageType {
 	GetCustomerDetails,
 	
 	/*Delivery person operations*/
-	UpdateOrderDelivered,GetClientsOrders, 
+	UpdateOrderDelivered,GetClientsOrders, GetClientsOrdersDelivery,
 	
 	/*Customer Service Worker operations*/
 	AddComplaint, GetSurveys, AddConclusion, 
 	
 	/*Worker operations*/
-	UpdateSurveyComment,
+	UpdateSurveyComment,CheckOrCreateSurveyResults, 
 	
 	
 	

@@ -16,21 +16,36 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import logic.Order;
 import logic.User;
 
 public class EnterSurveyCommentsScreenController implements Initializable {
-
 	@FXML
-	private Button xBtn;
+    private Button xBtn;
+
+    @FXML
+    private Label suveryLabel;
+
+    @FXML
+    private Label customerIDLabel;
+
+    @FXML
+    private Label answersLabel;
+    
+    @FXML
+    private Label fillLabel;
+    @FXML
+    private Line line;
+    
 	@FXML
 	private TextField surveyTypeText;
 	@FXML
@@ -45,6 +60,8 @@ public class EnterSurveyCommentsScreenController implements Initializable {
 	Integer[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
 	User user;
+	
+	Integer commentsCounter;
 
 	@FXML
 	void Back(ActionEvent event) {
@@ -73,6 +90,7 @@ public class EnterSurveyCommentsScreenController implements Initializable {
     void Save(ActionEvent event) {
     	Integer surveyID,customerID,ans1,ans2,ans3,ans4,ans5,ans6;
     	String surveyType,userName;
+    	//commentsCounter++; //another customer answered.
     	surveyID = Integer.parseInt(surveyIDText.getText());    	
     	customerID = Integer.parseInt(customerIDText.getText());
     	surveyType = surveyTypeText.getText();
@@ -117,6 +135,26 @@ public class EnterSurveyCommentsScreenController implements Initializable {
 		AnswerF.getItems().addAll(nums);
 
 	}
+	
+	  @FXML
+	    void Enter(ActionEvent event) {
+		  line.setVisible(true);
+		  customerIDText.setVisible(true);
+		  surveyTypeText.setVisible(true);
+		  fillLabel.setVisible(true);
+		  suveryLabel.setVisible(true);
+		  customerIDLabel.setVisible(true);
+		  answersLabel.setVisible(true);
+		  AnswerA.setVisible(true);
+		  AnswerB.setVisible(true);
+		  AnswerC.setVisible(true);
+		  AnswerD.setVisible(true);
+		  AnswerE.setVisible(true);
+		  AnswerF.setVisible(true);
+		  surveyIDText.setDisable(true);
+		  /*Checks and if does not exist, creates new surveyResults in DB*/
+		  ClientUI.chat.accept(new Message(ClientMessageType.CheckOrCreateSurveyResults,(Object)surveyIDText.getText()));
+	    }
 
 	public void SetUser(User user) {
 		this.user = user;

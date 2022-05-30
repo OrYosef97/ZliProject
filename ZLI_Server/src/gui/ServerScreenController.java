@@ -33,7 +33,7 @@ public class ServerScreenController implements Initializable {
 	private TableView<Client> connectedClientsTable;
 
 	@FXML
-	private TextArea consoleTxtArea;
+	public TextArea consoleTxtArea;
 
 	@FXML
 	private TextField dbNameTxtField;
@@ -126,8 +126,7 @@ public class ServerScreenController implements Initializable {
 	@FXML
     void EnterPressed(KeyEvent event) throws SQLException {
 		if(event.getCode() == KeyCode.ENTER) {
-			ActionEvent event1 = new ActionEvent();
-			connectToServer(event1);
+			connectBtn.fire();
 		}
 	}
 	  

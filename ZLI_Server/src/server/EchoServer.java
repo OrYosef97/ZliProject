@@ -19,6 +19,7 @@ import logic.Customer;
 import logic.CustomerDetails;
 import logic.Item;
 import logic.Order;
+import logic.OrderDelivery;
 import logic.Product;
 import logic.Survey;
 import logic.User;
@@ -71,14 +72,15 @@ public class EchoServer extends AbstractServer {
 	public void handleMessageFromClient(Object msg, ConnectionToClient client)
 
 	{
+		User user = null;
 		Message message = (Message) msg;
 		System.out.println("Message received: " + msg + " from " + client);
 		String splitString[] = message.toString().split(" ");
 		switch (message.getClientMessageType()) {
 		case LOGIN:
 			try {// ---------------------we need the row below****
-				User rs = GeneralConnector.getUserInfo(splitString[0]);
-				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
+				user = GeneralConnector.getUserInfo(splitString[0]);
+				message = new Message((user == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, user);
 				client.sendToClient(message);
 			} catch (IOException e) {
 			}
@@ -134,7 +136,6 @@ public class EchoServer extends AbstractServer {
 
 		case GetClientsOrders:
 			try {
-
 				ArrayList<Order> rs = GeneralConnector.getOrders();
 				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
 				client.sendToClient(message);
@@ -142,8 +143,17 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
-
-		case GetSurveys: // added by Gal
+		case GetClientsOrdersDelivery:
+			try {
+				ArrayList<OrderDelivery> rs = DeliveryDBConnector.GetClientsOrdersDelivery();
+				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
+				client.sendToClient(message);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+			
+		case GetSurveys: //added by Gal
 			try {
 				ArrayList<Survey> rs = CustomerServiceWorkerDBConnector.LoadSurveys();
 				message = new Message((rs == null) ? ServerMessageType.FAILED : ServerMessageType.SUCCEED, rs);
@@ -152,6 +162,7 @@ public class EchoServer extends AbstractServer {
 				e.printStackTrace();
 			}
 			break;
+
 
 		case GetCustomerDetails: // added by yaniv
 			try {
@@ -166,7 +177,8 @@ public class EchoServer extends AbstractServer {
 
 		case UpdateLoggedIn: // added by gal
 			try {
-				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0], Integer.parseInt(splitString[1]));
+				
+				boolean succeeded = GeneralConnector.UpdateLoggedIn(splitString[0],Integer.parseInt(splitString[1]));
 				System.out.println("client " + client + " logout " + (succeeded ? "succeed" : "faild"));
 				client.sendToClient(new Message(ServerMessageType.SUCCEED, succeeded));
 			} catch (IOException e) {
@@ -177,16 +189,14 @@ public class EchoServer extends AbstractServer {
 				@SuppressWarnings("unchecked")
 				ArrayList<Object> data = (ArrayList<Object>) message.getObj();
 				Integer CustomerID = (Integer) data.get(0);
-				System.out.println(CustomerID);
-				String Date = (String) data.get(1).toString();
-				System.out.println(Date);
-				String Text = (String) data.get(2);
-				System.out.println(Text);
-				boolean succeeded = CustomerServiceWorkerDBConnector.UpdateComplaint(CustomerID, Date, Text);
-				client.sendToClient(
-						new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
-				// from
-				// sendToAllClient
+
+		    	String Date = (String) data.get(1);
+		    	String endDate = (String) data.get(2);
+		    	String Text = (String) data.get(3);
+				boolean succeeded = CustomerServiceWorkerDBConnector.UpdateComplaint(CustomerID, Date,endDate, Text);
+				client.sendToClient(new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
+																													// from
+																													// sendToAllClient
 			} catch (IOException e) {
 			}
 			break;
@@ -229,9 +239,21 @@ public class EchoServer extends AbstractServer {
 			break;
 		case UpdateOrderDelivered: // added by gal
 			try {
-
 				System.out.println(splitString[0] + " test");
 				boolean succeeded = DeliveryDBConnector.UpdateOrderDelivered(splitString[0]);
+				client.sendToClient(
+						new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
+																													// from
+																													// sendToAllClient
+			} catch (IOException e) {
+			}
+			break;
+			
+		case CheckOrCreateSurveyResults: // added by gal
+			try {
+				Integer surveyID = Integer.parseInt((String)message.getObj());
+				System.out.println(splitString[0] + " test");
+				boolean succeeded = WorkerDBConnector.CheckOrCreateSurveyResults(surveyID);
 				client.sendToClient(
 						new Message(succeeded ? ServerMessageType.SUCCEED : ServerMessageType.FAILED, succeeded));// changed
 																													// from
