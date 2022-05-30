@@ -1,7 +1,5 @@
 package gui;
 
-import java.sql.SQLException;
-
 import client.ClientPortal;
 import client.ClientUI;
 import javafx.event.ActionEvent;
@@ -52,16 +50,11 @@ public class ConnectToServerScreenController {
 			}
 		}
 	}
-<<<<<<< Upstream, based on branch 'master' of https://github.com/OrYosef97/ZliProject.git
-=======
 	 @FXML
 	    void EnterPressed(KeyEvent event) {
 		 if (event.getCode() == KeyCode.ENTER) {
 				connectBtn.fire();
 			}
 	    }
-	
-	
->>>>>>> 6a3a052 Worker update + added enter functionality
 
 }
